@@ -1,6 +1,7 @@
 const { net } = require('electron');
 const fs = require('fs');
 const path = require('path');
+const embedLocal = require('./embed-local');
 
 const MAX_DOCS = 200;
 const MAX_TOTAL_CHUNKS = 6000;
@@ -150,7 +151,9 @@ module.exports = function createKnowledgeBase({ getConfig, getIndexPath, emit, l
       docCount: docs.length,
       chunkCount,
       indexedWithVectors: withVectors,
-      hasEmbeddingEndpoint
+      hasEmbeddingEndpoint,
+      builtinAvailable: embedLocal.isAvailable(),
+      builtinModel: embedLocal.MODEL_ID
     };
   }
 
@@ -179,12 +182,17 @@ module.exports = function createKnowledgeBase({ getConfig, getIndexPath, emit, l
     docs.push(entry);
 
     const config = getConfig();
-    if ((config.kbIndexMode || 'keyword') === 'embedding') {
+    const mode = config.kbIndexMode || 'keyword';
+    if (mode === 'embedding' || mode === 'builtin') {
       try {
-        const vectors = await embedRequest(chunks);
+        const vectors = mode === 'builtin'
+          ? (embedLocal.isAvailable() ? await embedLocal.embedTexts(chunks) : null)
+          : await embedRequest(chunks);
         if (vectors && vectors.length === chunks.length) {
           entry.chunks.forEach((c, i) => { c.vector = vectors[i]; });
           entry.vectorReady = true;
+        } else if (mode === 'builtin' && !embedLocal.isAvailable()) {
+          entry.warning = '未找到内置模型，已使用关键词索引';
         } else {
           entry.warning = '向量化数量不匹配，已回退为关键词索引';
         }
@@ -256,9 +264,11 @@ module.exports = function createKnowledgeBase({ getConfig, getIndexPath, emit, l
     const k = Math.max(1, Math.min(8, Number(topK) || 4));
 
     let queryVector = null;
-    if (mode === 'embedding') {
+    if (mode === 'embedding' || mode === 'builtin') {
       try {
-        const vectors = await embedRequest([q]);
+        const vectors = mode === 'builtin'
+          ? (embedLocal.isAvailable() ? await embedLocal.embedTexts([q]) : null)
+          : await embedRequest([q]);
         if (vectors && vectors.length) queryVector = vectors[0];
       } catch (_error) {
         // embedding 查询失败时回退为纯关键词打分
@@ -272,7 +282,7 @@ module.exports = function createKnowledgeBase({ getConfig, getIndexPath, emit, l
         let score = lexical;
         if (queryVector && Array.isArray(chunk.vector)) {
           score = lexical * 0.25 + cosine(chunk.vector, queryVector) * 0.75;
-        } else if (mode === 'embedding' && queryVector) {
+        } else if ((mode === 'embedding' || mode === 'builtin') && queryVector) {
           score = lexical;
         }
         if (score > 0.02) scored.push({ text: chunk.text, doc: doc.name, score });

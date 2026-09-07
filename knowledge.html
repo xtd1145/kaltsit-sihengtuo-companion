@@ -116,7 +116,7 @@
 
     function renderStats(state) {
       if (!state) { statsEl.textContent = '—'; return; }
-      const mode = state.mode === 'embedding' ? '向量检索' : '关键词检索';
+      const mode = state.mode === 'builtin' ? '内置小模型(离线)' : (state.mode === 'embedding' ? '云端向量' : '关键词');
       statsEl.textContent = `模式：${mode} ｜ 文档 ${state.docCount} ｜ 分块 ${state.chunkCount} ${state.indexedWithVectors ? '｜ 已向量化' : ''}`;
     }
 

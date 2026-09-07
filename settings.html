@@ -551,12 +551,14 @@
         <span class="setting-label">索引方式</span>
         <div class="segments" id="kb-index-mode" role="group" aria-label="索引方式">
           <button class="segment" type="button" data-value="keyword">关键词</button>
-          <button class="segment" type="button" data-value="embedding">向量</button>
+          <button class="segment" type="button" data-value="builtin">内置模型</button>
+          <button class="segment" type="button" data-value="embedding">云端向量</button>
         </div>
       </div>
       <div class="kb-note">
-        <b>关键词：</b>无需任何额外模型，任何电脑都能用，适合中小型知识库。<br>
-        <b>向量：</b>语义检索更准，需要一个 Embedding 接口 —— 可在本机跑 Ollama / LM Studio 等部署 Qwen 等小模型，或用云端 Embedding API。
+        <b>关键词：</b>无需任何模型，任何电脑都能用。<br>
+        <b>内置模型：</b>程序自带 bge-small-zh 中文小模型（约 24MB），完全离线、零配置即可语义检索，推荐。<br>
+        <b>云端向量：</b>使用下方 Embedding 接口（本机 Ollama / LM Studio 部署 Qwen 等小模型，或任何云端 Embedding API）。
       </div>
       <div class="setting-row" id="kb-embed-row">
         <span class="setting-label">Embedding 地址</span>
@@ -760,10 +762,16 @@
     function renderKbStatus(nextState) {
       if (nextState) kbState = nextState;
       if (!kbState) { kbStatusEl.textContent = '—'; kbStatusEl.dataset.state = ''; return; }
-      const mode = kbState.mode === 'embedding' ? '向量检索' : '关键词检索';
-      kbStatusEl.textContent = mode + ' ｜ 文档 ' + kbState.docCount + ' ｜ 分块 ' + kbState.chunkCount +
-        (kbState.indexedWithVectors ? ' ｜ 已向量化' : '');
-      kbStatusEl.dataset.state = '';
+      const modeLabel = kbState.mode === 'builtin' ? '内置小模型' : (kbState.mode === 'embedding' ? '云端向量' : '关键词');
+      let extra = '';
+      let error = false;
+      if (kbState.mode === 'builtin') {
+        if (!kbState.builtinAvailable) { extra = '（未找到内置模型文件）'; error = true; }
+        else if (kbState.indexedWithVectors) extra = '（离线向量就绪）';
+      }
+      kbStatusEl.textContent = modeLabel + ' ｜ 文档 ' + kbState.docCount + ' ｜ 分块 ' + kbState.chunkCount + extra +
+        (kbState.mode === 'embedding' && kbState.indexedWithVectors ? ' ｜ 已向量化' : '');
+      kbStatusEl.dataset.state = error ? 'err' : '';
     }
 
     function kbFeedback(text, ok) {

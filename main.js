@@ -942,7 +942,7 @@ ipcMain.handle('config:save', (_event, partial) => {
   config.aiApiKey = typeof config.aiApiKey === 'string' ? config.aiApiKey.trim().slice(0, 200) : '';
   config.aiModel = typeof config.aiModel === 'string' ? config.aiModel.trim().slice(0, 100) : '';
   config.aiKnowledgeEnabled = Boolean(config.aiKnowledgeEnabled);
-  config.kbIndexMode = ['keyword', 'embedding'].includes(config.kbIndexMode) ? config.kbIndexMode : 'keyword';
+  config.kbIndexMode = ['keyword', 'builtin', 'embedding'].includes(config.kbIndexMode) ? config.kbIndexMode : 'keyword';
   config.kbEmbedBase = typeof config.kbEmbedBase === 'string' ? config.kbEmbedBase.trim().slice(0, 300) : '';
   config.kbEmbedModel = typeof config.kbEmbedModel === 'string' ? config.kbEmbedModel.trim().slice(0, 100) : '';
   config.kbEmbedKey = typeof config.kbEmbedKey === 'string' ? config.kbEmbedKey.trim().slice(0, 200) : '';

@@ -6,11 +6,20 @@ directories:
   output: dist
 files:
   - "**/*"
+  - "!models/**"
   - "!dist/**"
   - "!build/**"
   - "!README.md"
   - "!package-lock.json"
 asar: true
+asarUnpack:
+  - node_modules/onnxruntime-node/**
+  - embed-worker.cjs
+extraResources:
+  - from: models
+    to: models
+  - from: embed-worker.cjs
+    to: app.asar.unpacked/embed-worker.cjs
 npmRebuild: false
 win:
   target:
