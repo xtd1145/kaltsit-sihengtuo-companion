@@ -11,6 +11,14 @@
 
 桌宠使用的 GIF 表情素材均来自 **@夏雪NazuYuki** 老师。老师产出非常多好看的表情包，观众姥爷们感兴趣可以点点关注～
 
+## 贡献者
+
+感谢以下开发者对本项目的支持与贡献：
+
+- [xihuii17](https://github.com/xihuii17) — [fangzhou-desktop-pets](https://github.com/xihuii17/fangzhou-desktop-pets)
+
+> 想一起完善桌宠？欢迎提交 Issue / PR，共同把这个同人桌宠做得更好。
+
 ## 简介
 
 她可以常驻桌面，陪你摸鱼、陪你专注。支持**点击、双击和长按互动**，也可以**拖动**她到屏幕的任意位置；点击或右键即可呼出快捷菜单。
