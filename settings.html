@@ -291,6 +291,42 @@
       accent-color: #217f7b;
     }
     .repo-input { width: 230px; }
+
+    .ai-input { width: 100%; }
+    .setting-textrow {
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) auto;
+      align-items: center;
+      column-gap: 28px;
+      min-height: 44px;
+    }
+    .ai-block { margin-top: 8px; }
+    .ai-block label {
+      display: block;
+      margin: 10px 0 4px;
+      color: #5e696d;
+      font-size: 12px;
+      line-height: 16px;
+    }
+    textarea#ai-persona-prompt {
+      width: 100%;
+      min-height: 150px;
+      padding: 9px 10px;
+      border: 1px solid #cbd1d3;
+      border-radius: 6px;
+      outline: 0;
+      color: #263033;
+      background: #fff;
+      font: inherit;
+      font-size: 12.5px;
+      line-height: 19px;
+      resize: vertical;
+    }
+    textarea#ai-persona-prompt:focus { border-color: #5ca9a4; box-shadow: 0 0 0 2px rgba(70, 151, 145, 0.14); }
+    .inline-buttons.space-between { justify-content: space-between; }
+    #ai-test-status { min-width: 0; }
+    #ai-test-status[data-state="ok"] { color: #217f7b; }
+    #ai-test-status[data-state="err"] { color: #a65a3f; }
   </style>
 </head>
 <body>
@@ -432,6 +468,68 @@
       <p class="setting-note" id="update-notes" hidden></p>
     </section>
 
+    <section id="section-ai">
+      <h2>AI 聊天</h2>
+      <div class="setting-row">
+        <div class="setting-copy">
+          <span class="setting-label">开启 AI 聊天</span>
+          <span class="setting-note">支持任何 OpenAI 兼容接口（DeepSeek / OpenAI / 通义 / 智谱 / OpenRouter…）</span>
+        </div>
+        <label class="switch">
+          <input id="ai-enabled" type="checkbox">
+          <span class="switch-track"></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <span class="setting-label">接口地址 Base URL</span>
+        <input class="secret-input repo-input ai-input" id="ai-base" type="text" placeholder="例如 https://api.deepseek.com/v1" spellcheck="false">
+      </div>
+      <div class="setting-row">
+        <span class="setting-label">API Key</span>
+        <input class="secret-input repo-input ai-input" id="ai-key" type="password" placeholder="sk-…" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="setting-row">
+        <span class="setting-label">模型</span>
+        <input class="secret-input repo-input ai-input" id="ai-model" type="text" placeholder="deepseek-chat" spellcheck="false">
+      </div>
+      <div class="setting-row">
+        <span class="setting-label">对话方式</span>
+        <div class="segments" id="ai-mode" role="group" aria-label="对话方式">
+          <button class="segment" type="button" data-value="window">聊天窗口</button>
+          <button class="segment" type="button" data-value="bubble">桌宠气泡</button>
+          <button class="segment" type="button" data-value="both">两者</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div class="setting-copy">
+          <span class="setting-label">连接测试</span>
+          <span class="setting-note" id="ai-test-status" data-state="">未测试</span>
+        </div>
+        <div class="control-line">
+          <button class="button" id="ai-test" type="button">测试连接</button>
+          <button class="button" id="ai-open-chat" type="button">打开聊天窗口</button>
+        </div>
+      </div>
+      <div class="ai-block">
+        <label for="ai-persona-select">当前人格（切换会开始新的对话）</label>
+        <div class="inline-buttons space-between">
+          <select class="secret-input repo-input ai-input" id="ai-persona-select"></select>
+          <div class="button-group">
+            <button class="button" id="ai-persona-new" type="button">新建人格</button>
+            <button class="button danger" id="ai-persona-delete" type="button">删除</button>
+          </div>
+        </div>
+        <label for="ai-persona-name">人格名称</label>
+        <input class="secret-input repo-input ai-input" id="ai-persona-name" type="text" maxlength="30" spellcheck="false">
+        <label for="ai-persona-prompt">系统提示词（Agent 人格设定，可整段粘贴你蒸馏好的明日方舟剧情设定）</label>
+        <textarea id="ai-persona-prompt" placeholder="在这里写下这个 AI 的角色、性格、说话方式、世界观约束……"></textarea>
+        <div class="inline-buttons space-between" style="margin-top:8px">
+          <span class="setting-note" id="ai-persona-hint"></span>
+          <button class="button" id="ai-persona-save" type="button">保存当前人格</button>
+        </div>
+      </div>
+    </section>
+
     <section class="actions">
       <div class="button-group">
         <button class="button" id="manage-actions" type="button">动作管理</button>
@@ -455,7 +553,8 @@
       qqLyricsEnabled: document.getElementById('qq-lyrics'),
       openAtLogin: document.getElementById('login'),
       mouseThrough: document.getElementById('mouse-through'),
-      autoUpdateEnabled: document.getElementById('auto-update')
+      autoUpdateEnabled: document.getElementById('auto-update'),
+      aiEnabled: document.getElementById('ai-enabled')
     };
     const scaleValue = document.getElementById('scale-value');
     const bubbleScaleValue = document.getElementById('bubble-scale-value');
@@ -473,6 +572,21 @@
     const updateNotesEl = document.getElementById('update-notes');
     const updateProgressRow = document.getElementById('update-progress-row');
     const updateProgressEl = document.getElementById('update-progress');
+    const aiBaseInput = document.getElementById('ai-base');
+    const aiKeyInput = document.getElementById('ai-key');
+    const aiModelInput = document.getElementById('ai-model');
+    const aiModeButtons = [...document.querySelectorAll('#ai-mode .segment')];
+    const aiTestButton = document.getElementById('ai-test');
+    const aiTestStatus = document.getElementById('ai-test-status');
+    const aiOpenChatButton = document.getElementById('ai-open-chat');
+    const personaSelect = document.getElementById('ai-persona-select');
+    const personaNameInput = document.getElementById('ai-persona-name');
+    const personaPromptInput = document.getElementById('ai-persona-prompt');
+    const personaSaveButton = document.getElementById('ai-persona-save');
+    const personaNewButton = document.getElementById('ai-persona-new');
+    const personaDeleteButton = document.getElementById('ai-persona-delete');
+    const personaHint = document.getElementById('ai-persona-hint');
+    let aiState = null;
     let config = null;
     let saveTimer = null;
     let statusTimer = null;
@@ -490,6 +604,13 @@
       controls.openAtLogin.checked = config.openAtLogin;
       controls.mouseThrough.checked = config.mouseThrough;
       controls.autoUpdateEnabled.checked = config.autoUpdateEnabled;
+      controls.aiEnabled.checked = config.aiEnabled;
+      aiBaseInput.value = config.aiBaseUrl || '';
+      aiKeyInput.value = config.aiApiKey || '';
+      aiModelInput.value = config.aiModel || '';
+      aiModeButtons.forEach((button) => {
+        button.classList.toggle('active', button.dataset.value === (config.aiReplyMode || 'window'));
+      });
       repoInput.value = [config.updateOwner, config.updateRepo].filter(Boolean).join('/');
       activityModeControl.dataset.value = config.activityMode;
       activityModeButtons.forEach((button) => {
@@ -505,6 +626,58 @@
       window.clearTimeout(statusTimer);
       status.classList.add('visible');
       statusTimer = window.setTimeout(() => status.classList.remove('visible'), 1200);
+    }
+
+    function commitTextField(key, input) {
+      const value = input.value.trim();
+      const pending = {};
+      pending[key] = value;
+      save(pending);
+    }
+
+    function applyAiState(nextState) {
+      aiState = nextState || aiState;
+      if (!aiState) return;
+      const personas = aiState.personas || [];
+      personaSelect.textContent = '';
+      for (const persona of personas) {
+        const option = document.createElement('option');
+        option.value = persona.id;
+        option.textContent = persona.name;
+        option.selected = persona.id === aiState.activePersonaId;
+        personaSelect.appendChild(option);
+      }
+      loadActivePersonaEditor();
+      updatePersonaHint();
+    }
+
+    function activePersona() {
+      if (!aiState) return null;
+      const personas = aiState.personas || [];
+      return personas.find((p) => p.id === aiState.activePersonaId) || personas[0] || null;
+    }
+
+    function loadActivePersonaEditor() {
+      const persona = activePersona();
+      if (!persona) return;
+      personaNameInput.value = persona.name || '';
+      personaPromptInput.value = persona.prompt || '';
+      updatePersonaHint();
+    }
+
+    function updatePersonaHint() {
+      const persona = activePersona();
+      if (!persona) { personaHint.textContent = ''; return; }
+      personaHint.textContent = `当前人格：${persona.name} · 提示词 ${(persona.prompt || '').length} 字`;
+    }
+
+    async function persistPersonas() {
+      if (!aiState) return;
+      const result = await window.companionAPI.aiSavePersonas(aiState.personas || []);
+      aiState = { ...aiState, personas: result };
+      const refreshed = await window.companionAPI.aiGetState();
+      applyAiState(refreshed);
+      showSaved();
     }
 
     function renderUpdateState(state) {
@@ -611,6 +784,74 @@
       if (event.key === 'Enter') repoInput.blur();
     });
     repoInput.addEventListener('change', commitRepo);
+    for (const [key, input] of [['aiBaseUrl', aiBaseInput], ['aiApiKey', aiKeyInput], ['aiModel', aiModelInput]]) {
+      input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') input.blur();
+      });
+      input.addEventListener('change', () => commitTextField(key, input));
+    }
+    aiModeButtons.forEach((button) => {
+      button.addEventListener('click', () => save({ aiReplyMode: button.dataset.value }));
+    });
+    aiTestButton.addEventListener('click', async () => {
+      aiTestStatus.textContent = '正在测试…';
+      aiTestStatus.dataset.state = '';
+      const result = await window.companionAPI.aiTest();
+      aiTestStatus.textContent = result && result.message ? result.message : (result && result.ok ? '连接成功' : '测试失败');
+      aiTestStatus.dataset.state = result && result.ok ? 'ok' : 'err';
+    });
+    aiOpenChatButton.addEventListener('click', () => window.companionAPI.openChat());
+    personaSelect.addEventListener('change', async () => {
+      const id = personaSelect.value;
+      if (!id || !aiState || id === aiState.activePersonaId) return;
+      const ok = await window.companionAPI.aiActivatePersona(id);
+      if (ok) {
+        const refreshed = await window.companionAPI.aiGetState();
+        applyAiState(refreshed);
+        showSaved();
+      }
+    });
+    personaSaveButton.addEventListener('click', async () => {
+      const persona = activePersona();
+      if (!persona) return;
+      persona.name = personaNameInput.value.trim().slice(0, 30) || persona.name;
+      persona.prompt = personaPromptInput.value.slice(0, 12000);
+      await persistPersonas();
+      updatePersonaHint();
+    });
+    personaNewButton.addEventListener('click', async () => {
+      if (!aiState) return;
+      const id = 'p' + Date.now().toString(36);
+      aiState.personas = (aiState.personas || []).concat([{ id, name: '新人格', prompt: '', builtIn: false }]);
+      await window.companionAPI.aiSavePersonas(aiState.personas);
+      await window.companionAPI.aiActivatePersona(id);
+      const refreshed = await window.companionAPI.aiGetState();
+      applyAiState(refreshed);
+      personaNameInput.focus();
+      personaNameInput.select();
+      showSaved();
+    });
+    personaDeleteButton.addEventListener('click', async () => {
+      if (!aiState || !aiState.personas || aiState.personas.length <= 1) return;
+      const target = activePersona();
+      if (!target) return;
+      aiState.personas = aiState.personas.filter((p) => p.id !== target.id);
+      if (!aiState.personas.some((p) => p.id === aiState.activePersonaId)) {
+        await window.companionAPI.aiSavePersonas(aiState.personas);
+        const refreshed = await window.companionAPI.aiGetState();
+        aiState = refreshed;
+      } else {
+        await window.companionAPI.aiSavePersonas(aiState.personas);
+      }
+      const refreshed = await window.companionAPI.aiGetState();
+      applyAiState(refreshed);
+      showSaved();
+    });
+    personaNameInput.addEventListener('input', () => {
+      const persona = activePersona();
+      if (persona) persona.name = personaNameInput.value.trim().slice(0, 30) || persona.name;
+    });
+    personaPromptInput.addEventListener('input', updatePersonaHint);
     updateCheckButton.addEventListener('click', async () => {
       updateStatusEl.dataset.state = 'idle';
       updateStatusEl.textContent = '正在检查更新…';
@@ -644,6 +885,8 @@
     window.companionAPI.getConfig().then(render);
     window.companionAPI.getLyricsStatus().then(renderLyricsStatus);
     window.companionAPI.getUpdateState().then(renderUpdateState);
+    window.companionAPI.onAiState(applyAiState);
+    window.companionAPI.aiGetState().then(applyAiState);
   </script>
 </body>
 </html>

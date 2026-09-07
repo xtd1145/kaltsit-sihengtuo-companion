@@ -166,6 +166,38 @@
 
     body.pet-through #through-badge { opacity: 1; }
 
+    #ai-bar {
+      position: absolute;
+      z-index: 7;
+      left: 50%;
+      bottom: 54px;
+      width: min(260px, calc(100% - 16px));
+      transform: translateX(-50%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 140ms ease;
+    }
+    body:hover #ai-bar,
+    #ai-bar:focus-within {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    body.pet-through #ai-bar { opacity: 0; pointer-events: none; }
+    #ai-text {
+      width: 100%;
+      height: 34px;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 17px;
+      outline: 0;
+      color: #263033;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 4px 14px rgba(14, 20, 22, 0.18);
+      font: inherit;
+      font-size: 13px;
+    }
+    #ai-text:focus { border-color: #5ca9a4; }
+
     .tool-button {
       display: grid;
       width: 32px;
@@ -248,6 +280,9 @@
     <div id="lyrics-current"></div>
     <div id="lyrics-next"></div>
   </div>
+  <div id="ai-bar">
+    <input id="ai-text" type="text" placeholder="和凯尔希说点什么…（Enter 发送）" autocomplete="off" maxlength="1000">
+  </div>
   <div id="toolbar" aria-label="快捷操作">
     <button class="tool-button" id="greet-button" type="button" title="打招呼" aria-label="打招呼">♡</button>
     <button class="tool-button" id="quiet-button" type="button" title="安静模式" aria-label="安静模式">☾</button>
@@ -264,6 +299,9 @@
     const quietButton = document.getElementById('quiet-button');
     const throughButton = document.getElementById('through-button');
     const throughBadge = document.getElementById('through-badge');
+    const aiBar = document.getElementById('ai-bar');
+    const aiText = document.getElementById('ai-text');
+    let aiBusy = false;
     const lyricsPanel = document.getElementById('lyrics');
     const lyricsTitle = document.getElementById('lyrics-title');
     const lyricsCurrent = document.getElementById('lyrics-current');
@@ -515,6 +553,8 @@
       updateScale();
       updateBubbleScale();
       document.body.classList.toggle('pet-through', Boolean(config.mouseThrough));
+      const aiVisible = Boolean(config.aiEnabled) && ['bubble', 'both'].includes(config.aiReplyMode || 'window');
+      aiBar.hidden = !aiVisible;
       throughButton.classList.toggle('active', Boolean(config.mouseThrough));
       throughButton.title = config.mouseThrough
         ? '鼠标穿透已开启（从托盘菜单或设置页关闭）'
@@ -663,6 +703,51 @@
       applyConfig(await window.companionAPI.saveConfig({ activityMode }));
     });
     throughButton.addEventListener('click', () => window.companionAPI.toggleMouseThrough());
+
+    function aiModeHasPet() {
+      return Boolean(config && config.aiEnabled && ['bubble', 'both'].includes(config.aiReplyMode || 'window'));
+    }
+
+    function aiReplyTruncated(reply) {
+      const text = String(reply || '').replace(/\s+/g, ' ').trim();
+      return text.length > 160 ? text.slice(0, 160) + '…' : text;
+    }
+
+    function sendAiQuickChat() {
+      const text = aiText.value.trim();
+      if (!text || aiBusy) return;
+      aiText.value = '';
+      aiText.disabled = true;
+      aiBusy = true;
+      window.companionAPI.aiSend(text);
+      setBubble('……', 30000, true);
+    }
+
+    aiText.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        sendAiQuickChat();
+      }
+    });
+    window.companionAPI.onAiDelta(() => {});
+    window.companionAPI.onAiDone((payload) => {
+      aiBusy = false;
+      aiText.disabled = false;
+      aiText.placeholder = '和凯尔希说点什么…（Enter 发送）';
+      if (aiModeHasPet()) setBubble(aiReplyTruncated(payload && payload.reply), 6000, true);
+    });
+    window.companionAPI.onAiError((payload) => {
+      aiBusy = false;
+      aiText.disabled = false;
+      aiText.placeholder = '和凯尔希说点什么…（Enter 发送）';
+      if (aiModeHasPet()) setBubble((payload && payload.message) || '出错了', 5000, true);
+    });
+    window.companionAPI.onAiState((nextState) => {
+      const busyNow = Boolean(nextState && nextState.busy);
+      aiBusy = busyNow;
+      aiText.disabled = busyNow;
+      aiText.placeholder = busyNow ? '凯尔希正在输入…' : '和凯尔希说点什么…（Enter 发送）';
+    });
 
     window.companionAPI.onConfigChanged(applyConfig);
     window.addEventListener('resize', updateScale);

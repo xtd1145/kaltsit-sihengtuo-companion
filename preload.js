@@ -23,6 +23,14 @@ contextBridge.exposeInMainWorld('companionAPI', {
   setActionDragRole: (id, role, enabled) => ipcRenderer.invoke('action:set-drag-role', { id, role, enabled }),
   setActionMemberships: (group, ids) => ipcRenderer.invoke('action:set-memberships', { group, ids }),
   openSettings: (section) => ipcRenderer.invoke('settings:open', section),
+  openChat: () => ipcRenderer.invoke('ai:open'),
+  aiGetState: () => ipcRenderer.invoke('ai:get-state'),
+  aiSend: (text) => ipcRenderer.invoke('ai:send', text),
+  aiStop: () => ipcRenderer.invoke('ai:stop'),
+  aiNewSession: () => ipcRenderer.invoke('ai:new-session'),
+  aiTest: () => ipcRenderer.invoke('ai:test'),
+  aiSavePersonas: (list) => ipcRenderer.invoke('ai:personas-save', list),
+  aiActivatePersona: (id) => ipcRenderer.invoke('ai:persona-activate', id),
   toggleMouseThrough: () => ipcRenderer.invoke('mouse-through:toggle'),
   checkForUpdates: () => ipcRenderer.invoke('update:check'),
   installUpdate: () => ipcRenderer.invoke('update:install'),
@@ -70,5 +78,25 @@ contextBridge.exposeInMainWorld('companionAPI', {
     const listener = (_event, state) => callback(state);
     ipcRenderer.on('update:state', listener);
     return () => ipcRenderer.removeListener('update:state', listener);
+  },
+  onAiState: (callback) => {
+    const listener = (_event, state) => callback(state);
+    ipcRenderer.on('ai:state', listener);
+    return () => ipcRenderer.removeListener('ai:state', listener);
+  },
+  onAiDelta: (callback) => {
+    const listener = (_event, payload) => callback(payload);
+    ipcRenderer.on('ai:delta', listener);
+    return () => ipcRenderer.removeListener('ai:delta', listener);
+  },
+  onAiDone: (callback) => {
+    const listener = (_event, payload) => callback(payload);
+    ipcRenderer.on('ai:done', listener);
+    return () => ipcRenderer.removeListener('ai:done', listener);
+  },
+  onAiError: (callback) => {
+    const listener = (_event, payload) => callback(payload);
+    ipcRenderer.on('ai:error', listener);
+    return () => ipcRenderer.removeListener('ai:error', listener);
   }
 });

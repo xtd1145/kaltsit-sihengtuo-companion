@@ -17,6 +17,7 @@ const path = require('path');
 const { pathToFileURL } = require('url');
 const { LyricsService } = require('./lyrics');
 const createUpdater = require('./updater');
+const { createAiService, DEFAULT_PERSONAS } = require('./ai');
 
 const CHARACTER_DIR = process.env.DESKTOP_PET_CHARACTER_DIR
   ? path.resolve(process.env.DESKTOP_PET_CHARACTER_DIR)
@@ -83,7 +84,14 @@ const DEFAULT_CONFIG = {
   mouseThrough: false,
   autoUpdateEnabled: true,
   updateOwner: 'xtd1145',
-  updateRepo: 'kaltsit-sihengtuo-companion'
+  updateRepo: 'kaltsit-sihengtuo-companion',
+  aiEnabled: false,
+  aiBaseUrl: '',
+  aiApiKey: '',
+  aiModel: '',
+  aiReplyMode: 'window',
+  activePersonaId: 'kaltsit',
+  personas: []
 };
 
 const WINDOW_BASE = { width: 300, height: 360 };
@@ -94,6 +102,7 @@ const LYRICS_MIN_WIDTH = 292;
 let petWindow = null;
 let settingsWindow = null;
 let managerWindow = null;
+let chatWindow = null;
 let tray = null;
 let dragState = null;
 let dragTimer = null;
@@ -102,6 +111,7 @@ let lyricsService = null;
 let lyricsStatus = { state: 'disabled', message: '未开启', permission: false };
 let petRendererRecoveries = [];
 let updater = null;
+let aiService = null;
 
 function errorText(error) {
   if (error instanceof Error) return error.stack || error.message;
@@ -205,9 +215,16 @@ function readConfig() {
       } catch (_error) {}
       writeConfig(config);
     }
+    if (!Array.isArray(config.personas) || !config.personas.length) {
+      config.personas = DEFAULT_PERSONAS.map((persona) => ({ ...persona }));
+    }
+    if (!config.personas.some((persona) => persona.id === config.activePersonaId)) {
+      config.activePersonaId = config.personas[0].id;
+    }
     return config;
   } catch (_error) {
-    return { ...DEFAULT_CONFIG };
+    const fallback = { ...DEFAULT_CONFIG, personas: DEFAULT_PERSONAS.map((persona) => ({ ...persona })) };
+    return fallback;
   }
 }
 
@@ -438,6 +455,24 @@ function sendLyricsStatus(status) {
   }
 }
 
+function sendAiEvent(type, payload) {
+  for (const window of [chatWindow, petWindow]) {
+    if (window && !window.isDestroyed()) {
+      try { window.webContents.send('ai:' + type, payload); } catch (_error) {}
+    }
+  }
+}
+
+function refreshAiState() {
+  if (!aiService) return;
+  const state = aiService.getState();
+  for (const window of [chatWindow, petWindow, settingsWindow]) {
+    if (window && !window.isDestroyed()) {
+      try { window.webContents.send('ai:state', state); } catch (_error) {}
+    }
+  }
+}
+
 function configureLyrics(config, promptForPermission = false) {
   if (!lyricsService) {
     const message = process.platform === 'darwin' ? '此角色未启用' : 'Windows 版暂不提供';
@@ -644,6 +679,32 @@ function createManagerWindow() {
   managerWindow.on('closed', () => { managerWindow = null; });
 }
 
+function createChatWindow() {
+  if (chatWindow && !chatWindow.isDestroyed()) {
+    chatWindow.show();
+    chatWindow.focus();
+    return;
+  }
+
+  chatWindow = new BrowserWindow({
+    width: 400,
+    height: 600,
+    minWidth: 340,
+    minHeight: 420,
+    title: `${CHARACTER.productName} AI 聊天`,
+    icon: ICON_PATH,
+    backgroundColor: '#f6f7f8',
+    autoHideMenuBar: true,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
+      nodeIntegration: false
+    }
+  });
+  chatWindow.loadFile('chat.html');
+  chatWindow.on('closed', () => { chatWindow = null; });
+}
+
 function toggleQuietMode() {
   const config = readConfig();
   if (config.activityMode === 'quiet') {
@@ -675,6 +736,7 @@ function menuTemplate() {
     })),
     { type: 'separator' },
     { label: '动作管理…', click: createManagerWindow },
+    { label: 'AI 聊天…', click: createChatWindow },
     { label: '安静模式', type: 'checkbox', checked: config.activityMode === 'quiet', click: toggleQuietMode },
     { label: '鼠标穿透', type: 'checkbox', checked: config.mouseThrough, click: toggleMouseThrough },
     { label: '设置…', click: createSettingsWindow },
@@ -707,6 +769,7 @@ function showContextMenu() {
     { label: '随机动作', click: () => playAction('random') },
     { type: 'separator' },
     { label: '动作管理…', click: createManagerWindow },
+    { label: 'AI 聊天…', click: createChatWindow },
     { label: '安静模式', type: 'checkbox', checked: readConfig().activityMode === 'quiet', click: toggleQuietMode },
     { label: '鼠标穿透', type: 'checkbox', checked: readConfig().mouseThrough, click: toggleMouseThrough },
     { label: '设置…', click: createSettingsWindow },
@@ -746,6 +809,11 @@ app.whenReady().then(() => {
     log: (event, details) => writeDiagnosticLog(event, details)
   });
   updater.applyConfig(readConfig());
+  aiService = createAiService({
+    getConfig: readConfig,
+    emit: sendAiEvent,
+    log: (event, details) => writeDiagnosticLog(event, details)
+  });
   writeDiagnosticLog('startup', {
     version: app.getVersion(),
     platform: process.platform,
@@ -803,6 +871,13 @@ ipcMain.handle('config:save', (_event, partial) => {
     config.updateOwner = '';
     config.updateRepo = '';
   }
+  config.aiEnabled = Boolean(config.aiEnabled);
+  config.aiReplyMode = ['window', 'bubble', 'both'].includes(config.aiReplyMode)
+    ? config.aiReplyMode
+    : 'window';
+  config.aiBaseUrl = typeof config.aiBaseUrl === 'string' ? config.aiBaseUrl.trim().slice(0, 300) : '';
+  config.aiApiKey = typeof config.aiApiKey === 'string' ? config.aiApiKey.trim().slice(0, 200) : '';
+  config.aiModel = typeof config.aiModel === 'string' ? config.aiModel.trim().slice(0, 100) : '';
   writeConfig(config);
   applyWindowConfig(config);
   app.setLoginItemSettings({
@@ -811,6 +886,7 @@ ipcMain.handle('config:save', (_event, partial) => {
   });
   sendConfig(config);
   if (updater) updater.applyConfig(config);
+  if (aiService) refreshAiState();
   if (previous.qqLyricsEnabled !== config.qqLyricsEnabled) {
     configureLyrics(config, config.qqLyricsEnabled);
   }
@@ -1137,6 +1213,43 @@ ipcMain.handle('mouse-through:toggle', () => {
 ipcMain.handle('update:get-state', () => (updater ? updater.getState() : { phase: 'idle', currentVersion: app.getVersion() }));
 ipcMain.handle('update:check', () => (updater ? updater.checkForUpdates({ manual: true }) : { phase: 'error', message: '更新模块未就绪' }));
 ipcMain.handle('update:install', () => (updater ? updater.downloadAndInstall() : false));
+ipcMain.handle('ai:get-state', () => (aiService ? aiService.getState() : { enabled: false, busy: false, replyMode: 'window', personas: [], persona: null }));
+ipcMain.handle('ai:send', (_event, text) => (aiService ? aiService.send(text) : { ok: false }));
+ipcMain.handle('ai:stop', () => { if (aiService) aiService.stop(); return true; });
+ipcMain.handle('ai:new-session', () => { if (aiService) aiService.newSession(); return true; });
+ipcMain.handle('ai:test', () => (aiService ? aiService.testConnection() : { ok: false, message: 'AI 模块未就绪' }));
+ipcMain.handle('ai:open', () => { createChatWindow(); return true; });
+ipcMain.handle('ai:personas-save', (_event, rawList) => {
+  const config = readConfig();
+  const list = (Array.isArray(rawList) ? rawList : [])
+    .filter((persona) => persona && typeof persona.id === 'string' && persona.id)
+    .slice(0, 30)
+    .map((persona) => ({
+      id: String(persona.id).slice(0, 40),
+      name: (String(persona.name || '').trim().slice(0, 30)) || '新人格',
+      prompt: String(persona.prompt || '').slice(0, 12000),
+      builtIn: Boolean(persona.builtIn)
+    }));
+  if (!list.length) list.push({ ...DEFAULT_PERSONAS[0] });
+  config.personas = list;
+  if (!config.personas.some((persona) => persona.id === config.activePersonaId)) {
+    config.activePersonaId = config.personas[0].id;
+  }
+  writeConfig(config);
+  sendConfig(config);
+  refreshAiState();
+  return config.personas;
+});
+ipcMain.handle('ai:persona-activate', (_event, id) => {
+  const config = readConfig();
+  if (!config.personas.some((persona) => persona.id === id)) return false;
+  if (aiService) { aiService.stop(); aiService.newSession(); }
+  config.activePersonaId = id;
+  writeConfig(config);
+  sendConfig(config);
+  refreshAiState();
+  return true;
+});
 
 ipcMain.on('drag:start', () => {
   if (!petWindow || petWindow.isDestroyed()) return;
