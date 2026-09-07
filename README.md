@@ -6,7 +6,7 @@
 
 本项目能够成形，离不开以下两位老师的付出：
 
-- **制作：@希fei（bilibili）**
+- **制作：@希fei（bilibili），本人仓库为https://github.com/xihuii17/fangzhou-desktop-pets**
 - **图画制作：@夏雪NazuYuki（bilibili）**
 
 桌宠使用的 GIF 表情素材均来自 **@夏雪NazuYuki** 老师。老师产出非常多好看的表情包，观众姥爷们感兴趣可以点点关注～
