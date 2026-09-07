@@ -1,5 +1,6 @@
 appId: com.local.kaltsitsihengtuo.companion
 productName: 凯尔希-思衡托桌宠
+electronVersion: 30.0.0
 directories:
   buildResources: build
   output: dist

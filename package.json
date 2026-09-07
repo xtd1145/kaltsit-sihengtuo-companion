@@ -14,7 +14,7 @@
     "dist:all": "electron-builder -mw"
   },
   "devDependencies": {
-    "electron": "^30.0.0",
-    "electron-builder": "^25.1.8"
+    "electron": "30.0.0",
+    "electron-builder": "^26.15.3"
   }
 }
