@@ -1,0 +1,32 @@
+appId: com.local.kaltsitsihengtuo.companion
+productName: 凯尔希-思衡托桌宠
+directories:
+  buildResources: build
+  output: dist
+files:
+  - "**/*"
+  - "!dist/**"
+  - "!build/**"
+  - "!README.md"
+  - "!package-lock.json"
+asar: true
+npmRebuild: false
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  artifactName: ${productName}-Setup-${version}.${ext}
+mac:
+  target:
+    - dmg
+    - zip
+  category: public.app-category.entertainment
+publish:
+  provider: github
+  owner: xtd1145
+  repo: kaltsit-sihengtuo-companion

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "kaltsit-sihengtuo",
+  "name": "凯尔希-思衡托",
+  "productName": "凯尔希-思衡托桌宠",
+  "packageName": "kaltsit-sihengtuo-companion",
+  "description": "凯尔希-思衡托桌面伴侣",
+  "version": "0.1.0",
+  "appId": "com.local.kaltsitsihengtuo.companion",
+  "executableName": "凯尔希-思衡托桌宠",
+  "greeting": "你好，我是凯尔希-思衡托。今天也请保持专注。",
+  "greetingAction": "wave",
+  "defaultAction": "idle",
+  "icon": "assets/app-icon.png",
+  "trayIcon": "assets/tray.png",
+  "features": {
+    "qqLyrics": false
+  },
+  "quickActions": [
+    {
+      "label": "打个招呼",
+      "actionId": "wave"
+    },
+    {
+      "label": "送一份礼物",
+      "actionId": "gift"
+    }
+  ]
+}

@@ -1,0 +1,2654 @@
+[
+  {
+    "id": "idle",
+    "file": "idle.gif",
+    "label": "安静待机",
+    "group": "base",
+    "modes": [
+      "quiet",
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_PNGTuber 闲置_2026-04-25-23-30-59.gif"
+  },
+  {
+    "id": "all-good",
+    "file": "all-good.gif",
+    "label": "一切都好",
+    "group": "idle",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "一切都好。",
+      "放心，我在。"
+    ],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_一切都好 1_2026-07-23-13-57-46.gif"
+  },
+  {
+    "id": "bubble",
+    "file": "bubble.gif",
+    "label": "冒泡",
+    "group": "idle",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 2310,
+    "lines": [
+      "偷偷冒个泡。",
+      "我还在这里。"
+    ],
+    "sourceName": "凯尔希-思衡托_冒泡 2_2026-04-25-23-28-36.gif"
+  },
+  {
+    "id": "arrive",
+    "file": "arrive.gif",
+    "label": "靠近",
+    "group": "welcome",
+    "dropReaction": true,
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 2070,
+    "lines": [
+      "我过来陪你啦。",
+      "今天也待在你旁边。"
+    ],
+    "sourceName": "凯尔希-思衡托_到达_2026-04-25-23-23-26.gif"
+  },
+  {
+    "id": "wave",
+    "file": "wave.gif",
+    "label": "打招呼",
+    "group": "welcome",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1980,
+    "lines": [
+      "你回来啦。",
+      "今天也请多关照。"
+    ],
+    "sourceName": "凯尔希-思衡托_打招呼 2_2026-05-16-13-59-10.gif"
+  },
+  {
+    "id": "nod",
+    "file": "nod.gif",
+    "label": "点头",
+    "group": "reply",
+    "dropReaction": true,
+    "modes": [
+      "quiet",
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "嗯，我知道了。",
+      "交给我吧。"
+    ],
+    "sourceName": "凯尔希-思衡托_点头_2026-04-25-23-26-54.gif"
+  },
+  {
+    "id": "shake-head",
+    "file": "shake-head.gif",
+    "label": "摇头",
+    "group": "reply",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": false,
+    "playMs": 1600,
+    "lines": [
+      "不可以太勉强自己。",
+      "先停一下也没关系。"
+    ],
+    "sourceName": "凯尔希-思衡托_摇头_2026-04-25-23-26-59.gif"
+  },
+  {
+    "id": "question",
+    "file": "question.gif",
+    "label": "疑问",
+    "group": "reply",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "这里是不是还要再看看？",
+      "嗯？发生什么了？"
+    ],
+    "sourceName": "凯尔希-思衡托_问号_2026-04-25-23-32-10.gif"
+  },
+  {
+    "id": "idea",
+    "file": "idea.gif",
+    "label": "想到办法",
+    "group": "reply",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "有办法了。",
+      "我想到一个好主意。"
+    ],
+    "sourceName": "凯尔希-思衡托_主意_2026-04-25-23-27-13.gif"
+  },
+  {
+    "id": "smile",
+    "file": "smile.gif",
+    "label": "微笑",
+    "group": "mood",
+    "modes": [
+      "quiet",
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "见到你真好。",
+      "今天也慢慢来。"
+    ],
+    "sourceName": "凯尔希-思衡托_笑_2026-04-25-23-27-47.gif"
+  },
+  {
+    "id": "wink",
+    "file": "wink.gif",
+    "label": "眨眼",
+    "group": "mood",
+    "modes": [
+      "quiet",
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "这是我们的小暗号。",
+      "我有好好看着你。"
+    ],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_眨眼_2026-07-23-13-58-06.gif"
+  },
+  {
+    "id": "shy",
+    "file": "shy.gif",
+    "label": "害羞",
+    "group": "mood",
+    "modes": [
+      "quiet",
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "突然这样，会有点害羞。",
+      "我很开心。"
+    ],
+    "sourceName": "凯尔希-思衡托_害羞 2_2026-04-25-23-33-29.gif"
+  },
+  {
+    "id": "pat",
+    "file": "pat.gif",
+    "label": "摸头",
+    "group": "touch",
+    "modes": [
+      "quiet",
+      "daily",
+      "office"
+    ],
+    "interaction": true,
+    "auto": false,
+    "playMs": 1600,
+    "lines": [
+      "嗯……可以再摸一下。",
+      "你的手很暖。"
+    ],
+    "sourceName": "凯尔希-思衡托_摸头_2026-04-25-23-30-29.gif"
+  },
+  {
+    "id": "head-rub",
+    "file": "head-rub.gif",
+    "label": "揉揉头",
+    "group": "touch",
+    "modes": [
+      "quiet",
+      "daily",
+      "office"
+    ],
+    "interaction": true,
+    "auto": false,
+    "playMs": 1600,
+    "lines": [
+      "头发要乱掉啦。",
+      "轻一点也可以。"
+    ],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_揉头 1_2026-08-13-17-21-51.gif"
+  },
+  {
+    "id": "cheek-squeeze",
+    "file": "cheek-squeeze.gif",
+    "label": "捏脸颊",
+    "group": "touch",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "interaction": true,
+    "auto": false,
+    "playMs": 1600,
+    "lines": [
+      "脸要被捏圆了。",
+      "唔……不许笑。"
+    ],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_挤脸颊_2026-08-13-17-19-01.gif"
+  },
+  {
+    "id": "nose-poke",
+    "file": "nose-poke.gif",
+    "label": "碰鼻子",
+    "group": "touch",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "interaction": true,
+    "auto": false,
+    "playMs": 1600,
+    "lines": [
+      "呀，是鼻子。",
+      "被你发现了。"
+    ],
+    "sourceName": "凯尔希-思衡托_指_2026-04-25-23-31-51.gif"
+  },
+  {
+    "id": "button",
+    "file": "button.gif",
+    "label": "按一下",
+    "group": "touch",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "interaction": true,
+    "auto": false,
+    "playMs": 1600,
+    "lines": [
+      "按钮有反应了。",
+      "再按一次会发生什么呢？"
+    ],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_按_2026-08-13-17-21-42.gif"
+  },
+  {
+    "id": "heart",
+    "file": "heart.gif",
+    "label": "爱心",
+    "group": "affection",
+    "modes": [
+      "daily"
+    ],
+    "interaction": true,
+    "auto": false,
+    "playMs": 2100,
+    "lines": [
+      "今天也很喜欢你。",
+      "这是给你的。"
+    ],
+    "sourceName": "凯尔希-思衡托_爱心 2_2026-04-25-23-28-54.gif"
+  },
+  {
+    "id": "gift",
+    "file": "gift.gif",
+    "label": "送礼物",
+    "group": "affection",
+    "modes": [
+      "daily"
+    ],
+    "interaction": true,
+    "auto": false,
+    "playMs": 1600,
+    "lines": [
+      "这个送给你。",
+      "希望你会喜欢。"
+    ],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_礼物 2_2026-06-16-00-06-07.gif"
+  },
+  {
+    "id": "rose",
+    "file": "rose.gif",
+    "label": "送玫瑰",
+    "group": "affection",
+    "modes": [
+      "daily"
+    ],
+    "interaction": true,
+    "auto": false,
+    "playMs": 1600,
+    "lines": [
+      "这朵花送给你。",
+      "今天也值得一朵花。"
+    ],
+    "sourceName": "凯尔希-思衡托_玫瑰_2026-04-25-23-32-44.gif"
+  },
+  {
+    "id": "cheer",
+    "file": "cheer.gif",
+    "label": "加油",
+    "group": "positive",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "加油，你已经做得很好了。",
+      "再往前一点点。"
+    ],
+    "sourceName": "凯尔希-思衡托_加油_2026-04-25-23-24-32.gif"
+  },
+  {
+    "id": "thumbs-up",
+    "file": "thumbs-up.gif",
+    "label": "点赞",
+    "group": "positive",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "做得漂亮。",
+      "这一项完成得很好。"
+    ],
+    "sourceName": "凯尔希-思衡托_点赞_2026-04-25-23-35-45.gif"
+  },
+  {
+    "id": "celebrate",
+    "file": "celebrate.gif",
+    "label": "庆祝",
+    "group": "positive",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "interaction": true,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "值得庆祝一下。",
+      "完成啦！"
+    ],
+    "sourceName": "凯尔希-思衡托_庆祝_2026-04-25-23-24-26.gif"
+  },
+  {
+    "id": "score",
+    "file": "score.gif",
+    "label": "十分",
+    "group": "positive",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": false,
+    "playMs": 1980,
+    "lines": [
+      "这次是十分。",
+      "满分通过。"
+    ],
+    "sourceName": "凯尔希-思衡托_得分(10分)_2026-04-25-23-32-59.gif"
+  },
+  {
+    "id": "cake",
+    "file": "cake.gif",
+    "label": "蛋糕",
+    "group": "food",
+    "modes": [
+      "daily"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "留一块给你。",
+      "今天需要一点甜。"
+    ],
+    "sourceName": "凯尔希-思衡托_蛋糕_2026-04-25-23-24-06.gif"
+  },
+  {
+    "id": "popcorn",
+    "file": "popcorn.gif",
+    "label": "吃爆米花",
+    "group": "food",
+    "modes": [
+      "daily"
+    ],
+    "auto": true,
+    "playMs": 1650,
+    "lines": [
+      "一起看点轻松的吧。",
+      "这一口很脆。"
+    ],
+    "sourceName": "凯尔希-思衡托_吃(爆米花)_2026-05-16-13-56-56.gif"
+  },
+  {
+    "id": "donut",
+    "file": "donut.gif",
+    "label": "吃甜甜圈",
+    "group": "food",
+    "modes": [
+      "daily"
+    ],
+    "auto": true,
+    "playMs": 3960,
+    "lines": [
+      "补充一点能量。",
+      "甜甜圈分你一半。"
+    ],
+    "sourceName": "凯尔希-思衡托_吃(甜甜圈)_2026-05-16-14-49-18.gif"
+  },
+  {
+    "id": "drink",
+    "file": "drink.gif",
+    "label": "喝饮料",
+    "group": "food",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "记得喝水。",
+      "休息一下再继续。"
+    ],
+    "sourceName": "凯尔希-思衡托_喝(饮料杯)_2026-04-25-23-25-38.gif"
+  },
+  {
+    "id": "tea",
+    "file": "tea.gif",
+    "label": "喝茶",
+    "group": "food",
+    "modes": [
+      "quiet",
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 2640,
+    "lines": [
+      "茶还是热的。",
+      "慢慢喝，不着急。"
+    ],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_茶 3_2026-08-13-17-22-33.gif"
+  },
+  {
+    "id": "fan",
+    "file": "fan.gif",
+    "label": "折扇",
+    "group": "special",
+    "modes": [
+      "quiet",
+      "daily"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "让风慢一点吹过来。",
+      "这样凉快一些。"
+    ],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_折扇_2026-07-23-13-56-49.gif"
+  },
+  {
+    "id": "magic",
+    "file": "magic.gif",
+    "label": "小魔法",
+    "group": "special",
+    "modes": [
+      "daily"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "变得顺利一点吧。",
+      "送你一个小魔法。"
+    ],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_魔法_2026-06-16-00-06-18.gif"
+  },
+  {
+    "id": "sunglasses",
+    "file": "sunglasses.gif",
+    "label": "戴墨镜",
+    "group": "special",
+    "modes": [
+      "daily"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "准备好出发了吗？",
+      "今天也要有气势。"
+    ],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_墨镜循环_2026-07-23-13-57-37.gif"
+  },
+  {
+    "id": "think",
+    "file": "think.gif",
+    "label": "认真思考",
+    "group": "mood",
+    "modes": [
+      "quiet",
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "让我认真想一想。",
+      "这里需要一点时间。"
+    ],
+    "sourceName": "凯尔希-思衡托_思考（认真地）_2026-05-16-13-59-57.gif"
+  },
+  {
+    "id": "confident",
+    "file": "confident.gif",
+    "label": "自信思考",
+    "group": "mood",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "我已经有思路了。",
+      "这次应该没问题。"
+    ],
+    "sourceName": "凯尔希-思衡托_思考（自信地）_2026-05-16-13-59-52.gif"
+  },
+  {
+    "id": "surprise",
+    "file": "surprise.gif",
+    "label": "惊吓",
+    "group": "mood",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": false,
+    "playMs": 1600,
+    "lines": [
+      "呀！",
+      "突然发生了什么？"
+    ],
+    "sourceName": "凯尔希-思衡托_惊吓_2026-04-25-23-35-08.gif"
+  },
+  {
+    "id": "nervous",
+    "file": "nervous.gif",
+    "label": "紧张",
+    "group": "mood",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "先深呼吸一下。",
+      "一点点紧张而已。"
+    ],
+    "sourceName": "凯尔希-思衡托_紧张 1_2026-04-25-23-29-46.gif"
+  },
+  {
+    "id": "sweat",
+    "file": "sweat.gif",
+    "label": "冒汗",
+    "group": "mood",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "事情好像变多了。",
+      "先一件一件来。"
+    ],
+    "sourceName": "凯尔希-思衡托_汗_2026-04-25-23-35-19.gif"
+  },
+  {
+    "id": "dizzy",
+    "file": "dizzy.gif",
+    "label": "头晕",
+    "group": "mood",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": false,
+    "playMs": 1600,
+    "lines": [
+      "让我缓一缓。",
+      "脑袋转得有点快。"
+    ],
+    "sourceName": "凯尔希-思衡托_头晕_2026-04-25-23-25-34.gif"
+  },
+  {
+    "id": "cry",
+    "file": "cry.gif",
+    "label": "哭泣",
+    "group": "mood",
+    "modes": [
+      "daily"
+    ],
+    "auto": false,
+    "playMs": 1980,
+    "lines": [
+      "只是有一点点难过。",
+      "陪我待一会儿就好。"
+    ],
+    "sourceName": "凯尔希-思衡托_哭 1_2026-04-25-23-25-10.gif"
+  },
+  {
+    "id": "angry",
+    "file": "angry.gif",
+    "label": "生气",
+    "group": "mood",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": false,
+    "playMs": 1980,
+    "lines": [
+      "我可没有生气。",
+      "这件事需要认真处理。"
+    ],
+    "sourceName": "凯尔希-思衡托_生气_2026-04-25-23-23-19.gif"
+  },
+  {
+    "id": "work",
+    "file": "work.gif",
+    "label": "认真办公",
+    "group": "office",
+    "modes": [
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "这部分马上就处理完。",
+      "今天的进度很顺利。"
+    ],
+    "sourceName": "凯尔希-思衡托_工作(普通)_2026-04-25-23-36-35.gif"
+  },
+  {
+    "id": "work-tired",
+    "file": "work-tired.gif",
+    "label": "办公疲倦",
+    "group": "office",
+    "modes": [
+      "office"
+    ],
+    "auto": false,
+    "playMs": 1980,
+    "lines": [
+      "看屏幕太久了。",
+      "该让眼睛休息一下。"
+    ],
+    "sourceName": "凯尔希-思衡托_工作(疲倦)_2026-04-25-23-36-43.gif"
+  },
+  {
+    "id": "work-angry",
+    "file": "work-angry.gif",
+    "label": "办公恼怒",
+    "group": "office",
+    "modes": [
+      "office"
+    ],
+    "auto": false,
+    "playMs": 1980,
+    "lines": [
+      "这个问题有点顽固。",
+      "再检查一遍。"
+    ],
+    "sourceName": "凯尔希-思衡托_工作(生气)_2026-04-25-23-36-24.gif"
+  },
+  {
+    "id": "work-doze",
+    "file": "work-doze.gif",
+    "label": "办公小睡",
+    "group": "office",
+    "modes": [
+      "quiet",
+      "office"
+    ],
+    "auto": false,
+    "playMs": 1980,
+    "lines": [
+      "只闭一会儿眼睛。",
+      "五分钟后继续。"
+    ],
+    "sourceName": "凯尔希-思衡托_工作(小睡)_2026-04-25-23-36-31.gif"
+  },
+  {
+    "id": "typing",
+    "file": "typing.gif",
+    "label": "打字",
+    "group": "office",
+    "modes": [
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "正在回复消息。",
+      "键盘声让人安心。"
+    ],
+    "sourceName": "凯尔希-思衡托_打字(普通)_2026-04-25-23-36-14.gif"
+  },
+  {
+    "id": "record",
+    "file": "record.gif",
+    "label": "记录",
+    "group": "office",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 2640,
+    "lines": [
+      "我帮你记下来。",
+      "重要的事情不能漏掉。"
+    ],
+    "sourceName": "凯尔希-思衡托_记录 1_2026-04-25-23-30-02.gif"
+  },
+  {
+    "id": "stop-work",
+    "file": "stop-work.gif",
+    "label": "停止工作",
+    "group": "office",
+    "modes": [
+      "office"
+    ],
+    "auto": false,
+    "playMs": 1980,
+    "lines": [
+      "程序暂时罢工了。",
+      "休息一下再重新开始。"
+    ],
+    "sourceName": "凯尔希-思衡托_停止工作_2026-04-25-23-34-38.gif"
+  },
+  {
+    "id": "trashcan",
+    "file": "trashcan.gif",
+    "label": "躲进垃圾桶",
+    "group": "special",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "interaction": true,
+    "auto": false,
+    "playMs": 1600,
+    "lines": [
+      "这里暂时很有安全感。",
+      "让我躲一小会儿。"
+    ],
+    "sourceName": "凯尔希-思衡托_垃圾桶_2026-04-25-23-35-48.gif"
+  },
+  {
+    "id": "sleep-prep1",
+    "file": "sleep-prep1.gif",
+    "label": "准备入睡",
+    "group": "sleep",
+    "modes": [
+      "quiet",
+      "daily"
+    ],
+    "sequenceOnly": true,
+    "auto": false,
+    "playMs": 1980,
+    "lines": [
+      "开始有点困了。"
+    ],
+    "sourceName": "凯尔希-思衡托_睡觉(准备阶段1)_2026-04-25-23-33-55.gif"
+  },
+  {
+    "id": "sleep-prep2",
+    "file": "sleep-prep2.gif",
+    "label": "渐渐睡着",
+    "group": "sleep",
+    "modes": [
+      "quiet",
+      "daily"
+    ],
+    "sequenceOnly": true,
+    "auto": false,
+    "playMs": 1980,
+    "lines": [
+      "眼睛快睁不开了。"
+    ],
+    "sourceName": "凯尔希-思衡托_睡觉(准备阶段2)_2026-04-25-23-34-02.gif"
+  },
+  {
+    "id": "sleep",
+    "file": "sleep.gif",
+    "label": "睡觉",
+    "group": "sleep",
+    "modes": [
+      "quiet",
+      "daily"
+    ],
+    "auto": true,
+    "playMs": 2640,
+    "lines": [
+      "你也不要太晚睡。",
+      "晚安。"
+    ],
+    "sourceName": "凯尔希-思衡托_睡觉(普通)_2026-04-25-23-33-47.gif"
+  },
+  {
+    "id": "camera",
+    "file": "camera.gif",
+    "label": "手机抓拍",
+    "group": "leisure",
+    "modes": [
+      "daily",
+      "office"
+    ],
+    "auto": true,
+    "playMs": 1650,
+    "lines": [
+      "看这里。",
+      "把这一刻留下来吧。"
+    ],
+    "sourceName": "凯尔希-思衡托_抓拍(手机)_2026-04-25-23-24-12.gif"
+  },
+  {
+    "id": "game",
+    "file": "game.gif",
+    "label": "打游戏",
+    "group": "leisure",
+    "modes": [
+      "daily"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "这一局很快就好。",
+      "轮到你了。"
+    ],
+    "sourceName": "凯尔希-思衡托_打游戏_2026-05-16-13-58-50.gif"
+  },
+  {
+    "id": "sing",
+    "file": "sing.gif",
+    "label": "唱歌",
+    "group": "leisure",
+    "modes": [
+      "daily"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "哼一小段给你听。",
+      "这首歌很好听。"
+    ],
+    "sourceName": "凯尔希-思衡托_唱歌_2026-04-25-23-33-36.gif"
+  },
+  {
+    "id": "guitar",
+    "file": "guitar.gif",
+    "label": "弹吉他",
+    "group": "leisure",
+    "modes": [
+      "daily"
+    ],
+    "auto": true,
+    "playMs": 1600,
+    "lines": [
+      "来一点轻松的旋律。",
+      "下一段想听什么？"
+    ],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_吉他_2026-07-23-13-57-17.gif"
+  },
+  {
+    "id": "dance",
+    "file": "dance.gif",
+    "label": "半身舞蹈",
+    "group": "leisure",
+    "modes": [
+      "daily"
+    ],
+    "auto": true,
+    "playMs": 1980,
+    "lines": [
+      "跟着节奏动一下。",
+      "今天的心情不错。"
+    ],
+    "sourceName": "凯尔希-思衡托_跳舞 1_2026-05-16-13-55-52.gif"
+  },
+  {
+    "id": "drag",
+    "file": "drag.gif",
+    "label": "拖动",
+    "group": "touch",
+    "dragging": true,
+    "modes": [
+      "quiet",
+      "daily",
+      "office"
+    ],
+    "sequenceOnly": true,
+    "auto": false,
+    "playMs": 1600,
+    "lines": [
+      "要带我去哪里？",
+      "慢一点也可以。"
+    ],
+    "sourceName": "凯尔希-思衡托_驾驶_2026-04-25-23-25-42.gif"
+  },
+  {
+    "id": "library-9f5457b8a87f180e",
+    "file": "library-9f5457b8a87f180e.gif",
+    "label": "一切都好 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_一切都好 2_2026-07-23-13-57-52.gif"
+  },
+  {
+    "id": "library-171ec702afecf90c",
+    "file": "library-171ec702afecf90c.gif",
+    "label": "一切都好 3",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_一切都好 3_2026-07-23-13-57-59.gif"
+  },
+  {
+    "id": "library-c8c3ada9b8356b86",
+    "file": "library-c8c3ada9b8356b86.gif",
+    "label": "一切都好 4",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_一切都好 4_2026-08-13-17-22-46.gif"
+  },
+  {
+    "id": "library-9807fd793b0ab00f",
+    "file": "library-9807fd793b0ab00f.gif",
+    "label": "一切都好 5",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_一切都好 5_2026-08-13-17-22-55.gif"
+  },
+  {
+    "id": "library-710f7b98a2d1cfdc",
+    "file": "library-710f7b98a2d1cfdc.gif",
+    "label": "一切都好 6",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_一切都好 6_2026-08-13-17-23-02.gif"
+  },
+  {
+    "id": "library-771814f7283bca5d",
+    "file": "library-771814f7283bca5d.gif",
+    "label": "六七(呆)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_六七(呆)_2026-06-16-00-08-36.gif"
+  },
+  {
+    "id": "library-44d16be01f853411",
+    "file": "library-44d16be01f853411.gif",
+    "label": "六七",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_六七_2026-06-16-00-08-32.gif"
+  },
+  {
+    "id": "library-c5760721841aa4b9",
+    "file": "library-c5760721841aa4b9.gif",
+    "label": "切（剪刀）",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_切（剪刀）_2026-08-13-17-19-22.gif"
+  },
+  {
+    "id": "library-b3de6a49272c3bc9",
+    "file": "library-b3de6a49272c3bc9.gif",
+    "label": "刷卡",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_刷卡_2026-06-16-00-05-26.gif"
+  },
+  {
+    "id": "library-978ce8965fbff951",
+    "file": "library-978ce8965fbff951.gif",
+    "label": "加载（睡觉）",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 3960,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_加载（睡觉）_2026-08-13-17-20-39.gif"
+  },
+  {
+    "id": "library-c6190787183ceba9",
+    "file": "library-c6190787183ceba9.gif",
+    "label": "加载（睡觉）",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 3960,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_加载（睡觉）_2026-08-13-17-38-25.gif"
+  },
+  {
+    "id": "library-cc33a9a539489e65",
+    "file": "library-cc33a9a539489e65.gif",
+    "label": "加载（茶_咖啡杯）",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 3960,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_加载（茶_咖啡杯）_2026-08-13-17-20-09.gif"
+  },
+  {
+    "id": "library-39bf25353364903c",
+    "file": "library-39bf25353364903c.gif",
+    "label": "加载（茶_咖啡杯）",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 3960,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_加载（茶_咖啡杯）_2026-08-13-17-37-56.gif"
+  },
+  {
+    "id": "library-c155d3dbac66b682",
+    "file": "library-c155d3dbac66b682.gif",
+    "label": "加载（马克杯）",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 3960,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_加载（马克杯）_2026-08-13-17-20-22.gif"
+  },
+  {
+    "id": "library-2f3b324543bf8e52",
+    "file": "library-2f3b324543bf8e52.gif",
+    "label": "加载（马克杯）",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 3960,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_加载（马克杯）_2026-08-13-17-38-13.gif"
+  },
+  {
+    "id": "library-13a722111306c622",
+    "file": "library-13a722111306c622.gif",
+    "label": "反转",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_反转_2026-06-16-00-08-08.gif"
+  },
+  {
+    "id": "library-804c1322f04f75b0",
+    "file": "library-804c1322f04f75b0.gif",
+    "label": "吐舌 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_吐舌 1_2026-08-13-17-16-21.gif"
+  },
+  {
+    "id": "library-52522f9f626ff4c6",
+    "file": "library-52522f9f626ff4c6.gif",
+    "label": "吐舌 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_吐舌 2_2026-08-13-17-16-35.gif"
+  },
+  {
+    "id": "library-a35c26e1fdbc5731",
+    "file": "library-a35c26e1fdbc5731.gif",
+    "label": "吐舌 3",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_吐舌 3_2026-08-13-17-16-44.gif"
+  },
+  {
+    "id": "library-56f12a4f59eba7f7",
+    "file": "library-56f12a4f59eba7f7.gif",
+    "label": "吐舌 4",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_吐舌 4_2026-08-13-17-16-53.gif"
+  },
+  {
+    "id": "library-b486c7c68a5c8f5d",
+    "file": "library-b486c7c68a5c8f5d.gif",
+    "label": "奶酪糊脸",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_奶酪糊脸_2026-07-23-13-55-43.gif"
+  },
+  {
+    "id": "library-2a33d55618fc9052",
+    "file": "library-2a33d55618fc9052.gif",
+    "label": "害怕 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_害怕 1_2026-06-16-00-08-26.gif"
+  },
+  {
+    "id": "library-4681ccf107285d6c",
+    "file": "library-4681ccf107285d6c.gif",
+    "label": "害怕 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_害怕 2_2026-06-16-00-08-28.gif"
+  },
+  {
+    "id": "library-5160bff746087788",
+    "file": "library-5160bff746087788.gif",
+    "label": "小丑 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 2310,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_小丑 1_2026-07-23-13-55-53.gif"
+  },
+  {
+    "id": "library-21a12f73b66200c4",
+    "file": "library-21a12f73b66200c4.gif",
+    "label": "小丑 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1980,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_小丑 2_2026-07-23-13-56-02.gif"
+  },
+  {
+    "id": "library-2a84619a16efb504",
+    "file": "library-2a84619a16efb504.gif",
+    "label": "拖鞋 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_拖鞋 1_2026-07-23-13-57-23.gif"
+  },
+  {
+    "id": "library-fabb7332793bb317",
+    "file": "library-fabb7332793bb317.gif",
+    "label": "拖鞋 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 2310,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_拖鞋 2_2026-07-23-13-57-31.gif"
+  },
+  {
+    "id": "library-2df40529ecbc9e12",
+    "file": "library-2df40529ecbc9e12.gif",
+    "label": "拿走我的钱",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_拿走我的钱_2026-06-16-00-08-45.gif"
+  },
+  {
+    "id": "library-6cddb021ef58761b",
+    "file": "library-6cddb021ef58761b.gif",
+    "label": "按钮 (拍击)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_按钮 (拍击)_2026-08-13-17-18-31.gif"
+  },
+  {
+    "id": "library-309bc9d3ffb71c6a",
+    "file": "library-309bc9d3ffb71c6a.gif",
+    "label": "按钮",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_按钮_2026-06-16-00-05-21.gif"
+  },
+  {
+    "id": "library-e0558e956976e860",
+    "file": "library-e0558e956976e860.gif",
+    "label": "摇可乐",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_摇可乐_2026-06-16-00-05-32.gif"
+  },
+  {
+    "id": "library-077765d1dbbf0979",
+    "file": "library-077765d1dbbf0979.gif",
+    "label": "烧 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_烧 1_2026-07-23-13-56-36.gif"
+  },
+  {
+    "id": "library-cb886925217054fc",
+    "file": "library-cb886925217054fc.gif",
+    "label": "烧 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_烧 2_2026-07-23-13-56-43.gif"
+  },
+  {
+    "id": "library-f67348cfa56f9992",
+    "file": "library-f67348cfa56f9992.gif",
+    "label": "电风扇1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_电风扇1_2026-07-23-13-56-21.gif"
+  },
+  {
+    "id": "library-c6d3cf665e35b0ca",
+    "file": "library-c6d3cf665e35b0ca.gif",
+    "label": "电风扇2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_电风扇2_2026-07-23-13-56-27.gif"
+  },
+  {
+    "id": "library-37d44741c90f214f",
+    "file": "library-37d44741c90f214f.gif",
+    "label": "礼物 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1710,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_礼物 1_2026-06-16-00-05-58.gif"
+  },
+  {
+    "id": "library-d70809f1559e8aae",
+    "file": "library-d70809f1559e8aae.gif",
+    "label": "礼物 3",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_礼物 3_2026-08-13-17-19-44.gif"
+  },
+  {
+    "id": "library-b4a2f86fa4883447",
+    "file": "library-b4a2f86fa4883447.gif",
+    "label": "耶",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_耶_2026-08-13-17-23-17.gif"
+  },
+  {
+    "id": "library-21f408543ea060e9",
+    "file": "library-21f408543ea060e9.gif",
+    "label": "胜利 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_胜利 1_2026-08-13-17-23-10.gif"
+  },
+  {
+    "id": "library-e191c26e32901aa8",
+    "file": "library-e191c26e32901aa8.gif",
+    "label": "舞蹈(散味)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_舞蹈(散味)_2026-06-16-00-05-41.gif"
+  },
+  {
+    "id": "library-56cc5c074cab94ce",
+    "file": "library-56cc5c074cab94ce.gif",
+    "label": "舞蹈(散味)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_舞蹈(散味)_2026-06-17-20-51-05.gif"
+  },
+  {
+    "id": "library-fffecf5d99ce7bce",
+    "file": "library-fffecf5d99ce7bce.gif",
+    "label": "茶 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_茶 1_2026-08-13-17-22-14.gif"
+  },
+  {
+    "id": "library-a703f2b4d83c684e",
+    "file": "library-a703f2b4d83c684e.gif",
+    "label": "茶 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_茶 2_2026-08-13-17-22-23.gif"
+  },
+  {
+    "id": "library-a5320ab5878b8219",
+    "file": "library-a5320ab5878b8219.gif",
+    "label": "被击中(Bits)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_被击中(Bits)_2026-07-23-13-56-54.gif"
+  },
+  {
+    "id": "library-545e1748c9842423",
+    "file": "library-545e1748c9842423.gif",
+    "label": "被击中(拖鞋)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_被击中(拖鞋)_2026-07-23-13-57-09.gif"
+  },
+  {
+    "id": "library-b4e73d80f9aa11fd",
+    "file": "library-b4e73d80f9aa11fd.gif",
+    "label": "被击中(爱心)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_被击中(爱心)_2026-07-23-13-57-05.gif"
+  },
+  {
+    "id": "library-cbd2c865b278bfc9",
+    "file": "library-cbd2c865b278bfc9.gif",
+    "label": "被击中(硬币)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "A 明日方舟 凯尔希-思衡托_被击中(硬币)_2026-07-23-13-57-00.gif"
+  },
+  {
+    "id": "library-f1e9feda67f7b2a5",
+    "file": "library-f1e9feda67f7b2a5.gif",
+    "label": "Bug",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1980,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_Bug_2026-04-25-23-23-59.gif"
+  },
+  {
+    "id": "library-abbc300df53ea14a",
+    "file": "library-abbc300df53ea14a.gif",
+    "label": "PNGTuber 加载",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_PNGTuber 加载_2026-04-25-23-31-13.gif"
+  },
+  {
+    "id": "library-23660dbede8d061a",
+    "file": "library-23660dbede8d061a.gif",
+    "label": "PNGTuber 说教",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_PNGTuber 说教_2026-04-25-23-31-46.gif"
+  },
+  {
+    "id": "library-fad1134bfa2bbf71",
+    "file": "library-fad1134bfa2bbf71.gif",
+    "label": "PNGTuber 说话 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_PNGTuber 说话 2_2026-04-25-23-31-38.gif"
+  },
+  {
+    "id": "library-0831f0bc4e2054b3",
+    "file": "library-0831f0bc4e2054b3.gif",
+    "label": "PNGTuber 说话",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_PNGTuber 说话_2026-04-25-23-31-30.gif"
+  },
+  {
+    "id": "library-c4eeadc93d3c3818",
+    "file": "library-c4eeadc93d3c3818.gif",
+    "label": "PNGTuber 闲置 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_PNGTuber 闲置 2_2026-04-25-23-31-07.gif"
+  },
+  {
+    "id": "library-75c8ec4142fecb58",
+    "file": "library-75c8ec4142fecb58.gif",
+    "label": "Popcat 帧",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_Popcat 帧_2026-04-25-23-31-56.gif"
+  },
+  {
+    "id": "library-f78dfd17cd05d5a1",
+    "file": "library-f78dfd17cd05d5a1.gif",
+    "label": "Popcat 平滑",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_Popcat 平滑_2026-04-25-23-32-01.gif"
+  },
+  {
+    "id": "library-89cb91cdffe079c7",
+    "file": "library-89cb91cdffe079c7.gif",
+    "label": "Raid 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_Raid 1_2026-04-25-23-32-17.gif"
+  },
+  {
+    "id": "library-a05dcd94d3688370",
+    "file": "library-a05dcd94d3688370.gif",
+    "label": "Raid 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 2070,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_Raid 2_2026-04-25-23-32-24.gif"
+  },
+  {
+    "id": "library-9f27ea4073bf78c7",
+    "file": "library-9f27ea4073bf78c7.gif",
+    "label": "TrashTuber 说教",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_TrashTuber 说教_2026-04-25-23-36-03.gif"
+  },
+  {
+    "id": "library-e6e6b2961e044add",
+    "file": "library-e6e6b2961e044add.gif",
+    "label": "TrashTuber 说话",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_TrashTuber 说话_2026-04-25-23-35-59.gif"
+  },
+  {
+    "id": "library-c88d202f7a356067",
+    "file": "library-c88d202f7a356067.gif",
+    "label": "TrashTuber 闲置",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_TrashTuber 闲置_2026-04-25-23-35-54.gif"
+  },
+  {
+    "id": "library-db7304aa0e3eaa9c",
+    "file": "library-db7304aa0e3eaa9c.gif",
+    "label": "催眠",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1980,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_催眠_2026-04-25-23-27-06.gif"
+  },
+  {
+    "id": "library-0f1633a79594e753",
+    "file": "library-0f1633a79594e753.gif",
+    "label": "像素墨镜反光",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1650,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_像素墨镜反光_2026-04-25-23-34-54.gif"
+  },
+  {
+    "id": "library-7bb6da1dd731b1c7",
+    "file": "library-7bb6da1dd731b1c7.gif",
+    "label": "冒泡 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_冒泡 1_2026-04-25-23-28-28.gif"
+  },
+  {
+    "id": "library-69aafad48bf28467",
+    "file": "library-69aafad48bf28467.gif",
+    "label": "冒泡 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_冒泡 1_2026-04-25-23-37-54.gif"
+  },
+  {
+    "id": "library-a47ea8c4abeda45e",
+    "file": "library-a47ea8c4abeda45e.gif",
+    "label": "冒泡 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 2310,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_冒泡 2_2026-04-25-23-38-03.gif"
+  },
+  {
+    "id": "library-238f94ada463acf6",
+    "file": "library-238f94ada463acf6.gif",
+    "label": "刀 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_刀 1_2026-04-25-23-27-34.gif"
+  },
+  {
+    "id": "library-26279ed5d0d041c5",
+    "file": "library-26279ed5d0d041c5.gif",
+    "label": "刀 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_刀 2_2026-04-25-23-27-40.gif"
+  },
+  {
+    "id": "library-55c30062f1e78fed",
+    "file": "library-55c30062f1e78fed.gif",
+    "label": "到达(拿勺子)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 2160,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_到达(拿勺子)_2026-04-25-23-23-41.gif"
+  },
+  {
+    "id": "library-92ee9fdc42c88301",
+    "file": "library-92ee9fdc42c88301.gif",
+    "label": "到达(拿筷子)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 2160,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_到达(拿筷子)_2026-04-25-23-23-34.gif"
+  },
+  {
+    "id": "library-fa602a646af2fe9f",
+    "file": "library-fa602a646af2fe9f.gif",
+    "label": "反向点赞",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_反向点赞_2026-04-25-23-35-40.gif"
+  },
+  {
+    "id": "library-75c2688137213fad",
+    "file": "library-75c2688137213fad.gif",
+    "label": "叹号",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_叹号_2026-04-25-23-26-44.gif"
+  },
+  {
+    "id": "library-804ce82c03e104eb",
+    "file": "library-804ce82c03e104eb.gif",
+    "label": "吃(西瓜)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_吃(西瓜)_2026-05-16-13-58-43.gif"
+  },
+  {
+    "id": "library-ab003997f5926af5",
+    "file": "library-ab003997f5926af5.gif",
+    "label": "呆 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_呆 1_2026-04-25-23-25-56.gif"
+  },
+  {
+    "id": "library-70216fd180e6f443",
+    "file": "library-70216fd180e6f443.gif",
+    "label": "呆 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1650,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_呆 2_2026-04-25-23-26-03.gif"
+  },
+  {
+    "id": "library-c499c1922e08b60d",
+    "file": "library-c499c1922e08b60d.gif",
+    "label": "呆 3",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1980,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_呆 3_2026-04-25-23-26-10.gif"
+  },
+  {
+    "id": "library-8c4621eca15552c7",
+    "file": "library-8c4621eca15552c7.gif",
+    "label": "呆(贴纸) 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_呆(贴纸) 1_2026-04-25-23-26-16.gif"
+  },
+  {
+    "id": "library-e84cb36e6d8a1ada",
+    "file": "library-e84cb36e6d8a1ada.gif",
+    "label": "呆(贴纸) 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1650,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_呆(贴纸) 2_2026-04-25-23-26-22.gif"
+  },
+  {
+    "id": "library-9dcedde125d5fe97",
+    "file": "library-9dcedde125d5fe97.gif",
+    "label": "呆(贴纸) 3",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1980,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_呆(贴纸) 3_2026-04-25-23-26-30.gif"
+  },
+  {
+    "id": "library-52520aa2044cf91f",
+    "file": "library-52520aa2044cf91f.gif",
+    "label": "哭 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1920,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_哭 2_2026-04-25-23-25-17.gif"
+  },
+  {
+    "id": "library-6d5b49a1051ba70d",
+    "file": "library-6d5b49a1051ba70d.gif",
+    "label": "哭 3",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_哭 3_2026-04-25-23-25-21.gif"
+  },
+  {
+    "id": "library-fcbafa3836db3b88",
+    "file": "library-fcbafa3836db3b88.gif",
+    "label": "喝(饮料杯)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_喝(饮料杯)_2026-04-25-23-37-21.gif"
+  },
+  {
+    "id": "library-2789f54909a5aa2f",
+    "file": "library-2789f54909a5aa2f.gif",
+    "label": "喷剂",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_喷剂_2026-04-25-23-34-30.gif"
+  },
+  {
+    "id": "library-305026ada2266301",
+    "file": "library-305026ada2266301.gif",
+    "label": "坐牢 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_坐牢 1_2026-04-25-23-27-23.gif"
+  },
+  {
+    "id": "library-d97c83446f2bae84",
+    "file": "library-d97c83446f2bae84.gif",
+    "label": "坐牢 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_坐牢 2_2026-04-25-23-27-27.gif"
+  },
+  {
+    "id": "library-446d00f526575c57",
+    "file": "library-446d00f526575c57.gif",
+    "label": "墨镜反光",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1650,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_墨镜反光_2026-04-25-23-34-47.gif"
+  },
+  {
+    "id": "library-429e62955bba8e94",
+    "file": "library-429e62955bba8e94.gif",
+    "label": "墨镜拿下来",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1890,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_墨镜拿下来_2026-04-25-23-35-02.gif"
+  },
+  {
+    "id": "library-33d83cbafa2a63c3",
+    "file": "library-33d83cbafa2a63c3.gif",
+    "label": "复活节",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_复活节_2026-04-25-23-26-37.gif"
+  },
+  {
+    "id": "library-d42ea3df3b68f698",
+    "file": "library-d42ea3df3b68f698.gif",
+    "label": "害羞 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_害羞 1_2026-04-25-23-33-16.gif"
+  },
+  {
+    "id": "library-078a3f0d2525c8f3",
+    "file": "library-078a3f0d2525c8f3.gif",
+    "label": "带薪拉屎(困难模式)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 2130,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_带薪拉屎(困难模式)_2026-04-25-23-30-24.gif"
+  },
+  {
+    "id": "library-05eddd8726be240a",
+    "file": "library-05eddd8726be240a.gif",
+    "label": "带薪拉屎(简单模式)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_带薪拉屎(简单模式)_2026-04-25-23-30-16.gif"
+  },
+  {
+    "id": "library-7ca6fd03067ab5db",
+    "file": "library-7ca6fd03067ab5db.gif",
+    "label": "干杯",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_干杯_2026-05-16-13-55-44.gif"
+  },
+  {
+    "id": "library-1f48b3ec0c90085a",
+    "file": "library-1f48b3ec0c90085a.gif",
+    "label": "得分(0分)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1980,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_得分(0分)_2026-04-25-23-32-52.gif"
+  },
+  {
+    "id": "library-fabd0d0bc8ddd3b3",
+    "file": "library-fabd0d0bc8ddd3b3.gif",
+    "label": "情书",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_情书_2026-04-25-23-28-19.gif"
+  },
+  {
+    "id": "library-f78b90433ade7909",
+    "file": "library-f78b90433ade7909.gif",
+    "label": "打字(恼怒)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_打字(恼怒)_2026-04-25-23-36-10.gif"
+  },
+  {
+    "id": "library-4f6b717b622ecef5",
+    "file": "library-4f6b717b622ecef5.gif",
+    "label": "打字(生气)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_打字(生气)_2026-04-25-23-36-06.gif"
+  },
+  {
+    "id": "library-07fcaaffdae3e5f5",
+    "file": "library-07fcaaffdae3e5f5.gif",
+    "label": "打招呼 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 2310,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_打招呼 1_2026-05-16-13-59-03.gif"
+  },
+  {
+    "id": "library-d9cc0f21126a7141",
+    "file": "library-d9cc0f21126a7141.gif",
+    "label": "扩音器",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_扩音器_2026-04-25-23-29-07.gif"
+  },
+  {
+    "id": "library-87c14ba8b83f4430",
+    "file": "library-87c14ba8b83f4430.gif",
+    "label": "抓拍(摄像机)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1650,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_抓拍(摄像机)_2026-04-25-23-24-19.gif"
+  },
+  {
+    "id": "library-5e937a1279b5164e",
+    "file": "library-5e937a1279b5164e.gif",
+    "label": "拍蝇",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_拍蝇_2026-04-25-23-35-13.gif"
+  },
+  {
+    "id": "library-e471fde8acf8a53b",
+    "file": "library-e471fde8acf8a53b.gif",
+    "label": "摇头",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_摇头_2026-04-25-23-37-39.gif"
+  },
+  {
+    "id": "library-519703d5fd01e1fb",
+    "file": "library-519703d5fd01e1fb.gif",
+    "label": "摇铃",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_摇铃_2026-04-25-23-23-48.gif"
+  },
+  {
+    "id": "library-5f4f3a8c11c156eb",
+    "file": "library-5f4f3a8c11c156eb.gif",
+    "label": "撬棍 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_撬棍 1_2026-04-25-23-24-46.gif"
+  },
+  {
+    "id": "library-3c2bbdfbaf46a2ed",
+    "file": "library-3c2bbdfbaf46a2ed.gif",
+    "label": "撬棍 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_撬棍 2_2026-04-25-23-24-53.gif"
+  },
+  {
+    "id": "library-4e281411a2c7ad30",
+    "file": "library-4e281411a2c7ad30.gif",
+    "label": "撬棍 3",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_撬棍 3_2026-04-25-23-25-00.gif"
+  },
+  {
+    "id": "library-ea8b56cbfd785bce",
+    "file": "library-ea8b56cbfd785bce.gif",
+    "label": "敲头",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_敲头_2026-04-25-23-23-52.gif"
+  },
+  {
+    "id": "library-019e3963c8a66784",
+    "file": "library-019e3963c8a66784.gif",
+    "label": "期待 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_期待 2_2026-05-16-13-59-33.gif"
+  },
+  {
+    "id": "library-d8bc86d2e6a88aa3",
+    "file": "library-d8bc86d2e6a88aa3.gif",
+    "label": "期待",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 2640,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_期待_2026-04-25-23-34-23.gif"
+  },
+  {
+    "id": "library-d23eccc13aa51ce9",
+    "file": "library-d23eccc13aa51ce9.gif",
+    "label": "枪",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_枪_2026-04-25-23-26-49.gif"
+  },
+  {
+    "id": "library-e06b9ae12c68f995",
+    "file": "library-e06b9ae12c68f995.gif",
+    "label": "死亡",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_死亡_2026-04-25-23-25-28.gif"
+  },
+  {
+    "id": "library-ecfebe6734d32b1f",
+    "file": "library-ecfebe6734d32b1f.gif",
+    "label": "点头",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_点头_2026-04-25-23-37-35.gif"
+  },
+  {
+    "id": "library-5894643f6103ef5b",
+    "file": "library-5894643f6103ef5b.gif",
+    "label": "爱心 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 2130,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_爱心 1_2026-04-25-23-28-46.gif"
+  },
+  {
+    "id": "library-6f3beadc883d549c",
+    "file": "library-6f3beadc883d549c.gif",
+    "label": "爱心 3",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1890,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_爱心 3_2026-04-25-23-29-01.gif"
+  },
+  {
+    "id": "library-4a36b36cad3a4258",
+    "file": "library-4a36b36cad3a4258.gif",
+    "label": "玫瑰",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_玫瑰_2026-04-25-23-38-25.gif"
+  },
+  {
+    "id": "library-6b6a9f4d5626cf56",
+    "file": "library-6b6a9f4d5626cf56.gif",
+    "label": "画板",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_画板_2026-04-25-23-35-23.gif"
+  },
+  {
+    "id": "library-e49af0f6d0b6e365",
+    "file": "library-e49af0f6d0b6e365.gif",
+    "label": "睡觉 (UU)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 2640,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_睡觉 (UU)_2026-04-25-23-34-12.gif"
+  },
+  {
+    "id": "library-3341b9cd5fac9ad0",
+    "file": "library-3341b9cd5fac9ad0.gif",
+    "label": "笑(指)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_笑(指)_2026-04-25-23-27-53.gif"
+  },
+  {
+    "id": "library-25f0f46a26539a66",
+    "file": "library-25f0f46a26539a66.gif",
+    "label": "紧张 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_紧张 2_2026-04-25-23-29-52.gif"
+  },
+  {
+    "id": "library-e2e3e1d5933f8468",
+    "file": "library-e2e3e1d5933f8468.gif",
+    "label": "红包 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_红包 1_2026-04-25-23-32-30.gif"
+  },
+  {
+    "id": "library-6b61a3ee22a6f343",
+    "file": "library-6b61a3ee22a6f343.gif",
+    "label": "红包 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1770,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_红包 2_2026-04-25-23-32-37.gif"
+  },
+  {
+    "id": "library-fbfa2957405b38fe",
+    "file": "library-fbfa2957405b38fe.gif",
+    "label": "胶带",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_胶带_2026-04-25-23-35-34.gif"
+  },
+  {
+    "id": "library-ff9e945d9e51b399",
+    "file": "library-ff9e945d9e51b399.gif",
+    "label": "自我安慰",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1830,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_自我安慰_2026-04-25-23-24-38.gif"
+  },
+  {
+    "id": "library-a064189176765db6",
+    "file": "library-a064189176765db6.gif",
+    "label": "舔舔",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_舔舔_2026-04-25-23-27-58.gif"
+  },
+  {
+    "id": "library-e91053028fd47a57",
+    "file": "library-e91053028fd47a57.gif",
+    "label": "荧光棒 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_荧光棒 1_2026-04-25-23-28-08.gif"
+  },
+  {
+    "id": "library-5437f74610faec4c",
+    "file": "library-5437f74610faec4c.gif",
+    "label": "荧光棒 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_荧光棒 2_2026-04-25-23-28-12.gif"
+  },
+  {
+    "id": "library-e030ca68932c8f3b",
+    "file": "library-e030ca68932c8f3b.gif",
+    "label": "要米",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1650,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_要米_2026-04-25-23-29-40.gif"
+  },
+  {
+    "id": "library-36a3a8078f5ed22f",
+    "file": "library-36a3a8078f5ed22f.gif",
+    "label": "记录 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_记录 2_2026-04-25-23-30-08.gif"
+  },
+  {
+    "id": "library-77a88d5ed96c372e",
+    "file": "library-77a88d5ed96c372e.gif",
+    "label": "跳舞 (Caramelldansen)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_跳舞 (Caramelldansen)_2026-05-16-13-55-59.gif"
+  },
+  {
+    "id": "library-aa1346625a2df718",
+    "file": "library-aa1346625a2df718.gif",
+    "label": "跳舞(Helltaker)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_跳舞(Helltaker)_2026-05-16-13-56-04.gif"
+  },
+  {
+    "id": "library-063f13e257eda85e",
+    "file": "library-063f13e257eda85e.gif",
+    "label": "跳舞(Helltaker)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_跳舞(Helltaker)_2026-05-16-13-56-11.gif"
+  },
+  {
+    "id": "library-d77ae768c72a138b",
+    "file": "library-d77ae768c72a138b.gif",
+    "label": "跳舞(低皮质醇)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_跳舞(低皮质醇)_2026-05-16-13-56-25.gif"
+  },
+  {
+    "id": "library-d6eaa14f47bb0875",
+    "file": "library-d6eaa14f47bb0875.gif",
+    "label": "通知_提示 Bits",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1710,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_通知_提示 Bits_2026-04-25-23-22-47.gif"
+  },
+  {
+    "id": "library-2d24595410d27da4",
+    "file": "library-2d24595410d27da4.gif",
+    "label": "通知_提示 星星_收藏",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1710,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_通知_提示 星星_收藏_2026-04-25-23-23-11.gif"
+  },
+  {
+    "id": "library-93b8be0e375163cb",
+    "file": "library-93b8be0e375163cb.gif",
+    "label": "通知_提示 点赞",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1710,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_通知_提示 点赞_2026-04-25-23-23-05.gif"
+  },
+  {
+    "id": "library-d38581dfb848f861",
+    "file": "library-d38581dfb848f861.gif",
+    "label": "通知_提示 爱心_喜欢",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1710,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_通知_提示 爱心_喜欢_2026-04-25-23-22-59.gif"
+  },
+  {
+    "id": "library-f0fa8095e15e4c26",
+    "file": "library-f0fa8095e15e4c26.gif",
+    "label": "通知_提示 硬币",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1710,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_通知_提示 硬币_2026-04-25-23-22-53.gif"
+  },
+  {
+    "id": "library-b6f06ca66c7bed36",
+    "file": "library-b6f06ca66c7bed36.gif",
+    "label": "钱",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_钱_2026-04-26-08-18-19.gif"
+  },
+  {
+    "id": "library-6338ce2b5b1f025b",
+    "file": "library-6338ce2b5b1f025b.gif",
+    "label": "静音 1",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_静音 1_2026-04-25-23-29-26.gif"
+  },
+  {
+    "id": "library-3ca2186bdeddc62f",
+    "file": "library-3ca2186bdeddc62f.gif",
+    "label": "静音 2",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1650,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_静音 2_2026-04-25-23-29-32.gif"
+  },
+  {
+    "id": "library-77c24aa6e7b30fb9",
+    "file": "library-77c24aa6e7b30fb9.gif",
+    "label": "馋(刀叉)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_馋(刀叉)_2026-04-25-23-25-51.gif"
+  },
+  {
+    "id": "library-5aaee430f9a3b79e",
+    "file": "library-5aaee430f9a3b79e.gif",
+    "label": "馋(筷子)",
+    "group": "library",
+    "modes": [],
+    "interaction": false,
+    "auto": true,
+    "playMs": 1600,
+    "lines": [],
+    "sourceName": "凯尔希-思衡托_馋(筷子)_2026-04-25-23-25-47.gif"
+  }
+]
