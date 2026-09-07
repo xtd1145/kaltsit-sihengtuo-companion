@@ -313,6 +313,7 @@
       stopButton.hidden = true;
       const last = localMessages[localMessages.length - 1];
       if (last && last.role === 'assistant') last.content = (payload && payload.reply) || '';
+      if (payload && payload.knowledge) addSystemNotice('· 已参考知识库 ' + payload.knowledge + ' 条资料');
       scrollBottom();
     });
     window.companionAPI.onAiError((payload) => {

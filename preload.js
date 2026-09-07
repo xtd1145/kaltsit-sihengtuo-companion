@@ -31,6 +31,13 @@ contextBridge.exposeInMainWorld('companionAPI', {
   aiTest: () => ipcRenderer.invoke('ai:test'),
   aiSavePersonas: (list) => ipcRenderer.invoke('ai:personas-save', list),
   aiActivatePersona: (id) => ipcRenderer.invoke('ai:persona-activate', id),
+  kbGetState: () => ipcRenderer.invoke('kb:get-state'),
+  kbGetDocs: () => ipcRenderer.invoke('kb:get-docs'),
+  kbAddText: (name, text) => ipcRenderer.invoke('kb:add-text', { name, text }),
+  kbImportFiles: () => ipcRenderer.invoke('kb:import-files'),
+  kbRemove: (id) => ipcRenderer.invoke('kb:remove', id),
+  kbClear: () => ipcRenderer.invoke('kb:clear'),
+  kbOpenManager: () => ipcRenderer.invoke('kb:open-manager'),
   toggleMouseThrough: () => ipcRenderer.invoke('mouse-through:toggle'),
   checkForUpdates: () => ipcRenderer.invoke('update:check'),
   installUpdate: () => ipcRenderer.invoke('update:install'),
@@ -98,5 +105,10 @@ contextBridge.exposeInMainWorld('companionAPI', {
     const listener = (_event, payload) => callback(payload);
     ipcRenderer.on('ai:error', listener);
     return () => ipcRenderer.removeListener('ai:error', listener);
+  },
+  onKbState: (callback) => {
+    const listener = (_event, state) => callback(state);
+    ipcRenderer.on('kb:state', listener);
+    return () => ipcRenderer.removeListener('kb:state', listener);
   }
 });

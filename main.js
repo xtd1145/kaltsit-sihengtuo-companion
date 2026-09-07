@@ -18,6 +18,7 @@ const { pathToFileURL } = require('url');
 const { LyricsService } = require('./lyrics');
 const createUpdater = require('./updater');
 const { createAiService, DEFAULT_PERSONAS } = require('./ai');
+const createKnowledgeBase = require('./kb');
 
 const CHARACTER_DIR = process.env.DESKTOP_PET_CHARACTER_DIR
   ? path.resolve(process.env.DESKTOP_PET_CHARACTER_DIR)
@@ -91,7 +92,13 @@ const DEFAULT_CONFIG = {
   aiModel: '',
   aiReplyMode: 'window',
   activePersonaId: 'kaltsit',
-  personas: []
+  personas: [],
+  aiKnowledgeEnabled: false,
+  kbIndexMode: 'keyword',
+  kbEmbedBase: '',
+  kbEmbedModel: '',
+  kbEmbedKey: '',
+  kbTopK: 4
 };
 
 const WINDOW_BASE = { width: 300, height: 360 };
@@ -103,6 +110,7 @@ let petWindow = null;
 let settingsWindow = null;
 let managerWindow = null;
 let chatWindow = null;
+let knowledgeWindow = null;
 let tray = null;
 let dragState = null;
 let dragTimer = null;
@@ -112,6 +120,7 @@ let lyricsStatus = { state: 'disabled', message: '未开启', permission: false 
 let petRendererRecoveries = [];
 let updater = null;
 let aiService = null;
+let kbService = null;
 
 function errorText(error) {
   if (error instanceof Error) return error.stack || error.message;
@@ -705,6 +714,46 @@ function createChatWindow() {
   chatWindow.on('closed', () => { chatWindow = null; });
 }
 
+function createKnowledgeWindow() {
+  if (knowledgeWindow && !knowledgeWindow.isDestroyed()) {
+    knowledgeWindow.show();
+    knowledgeWindow.focus();
+    return;
+  }
+
+  knowledgeWindow = new BrowserWindow({
+    width: 720,
+    height: 600,
+    minWidth: 560,
+    minHeight: 440,
+    title: `${CHARACTER.productName} 知识库`,
+    icon: ICON_PATH,
+    backgroundColor: '#f6f7f8',
+    autoHideMenuBar: true,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
+      nodeIntegration: false
+    }
+  });
+  knowledgeWindow.loadFile('knowledge.html');
+  knowledgeWindow.on('closed', () => { knowledgeWindow = null; });
+}
+
+function sendKbState(state) {
+  for (const window of [settingsWindow, knowledgeWindow]) {
+    if (window && !window.isDestroyed()) {
+      try { window.webContents.send('kb:state', state); } catch (_error) {}
+    }
+  }
+}
+
+function refreshKbState() {
+  if (!kbService) return;
+  const state = kbService.getState();
+  sendKbState(state);
+}
+
 function toggleQuietMode() {
   const config = readConfig();
   if (config.activityMode === 'quiet') {
@@ -809,10 +858,24 @@ app.whenReady().then(() => {
     log: (event, details) => writeDiagnosticLog(event, details)
   });
   updater.applyConfig(readConfig());
+  kbService = createKnowledgeBase({
+    getConfig: readConfig,
+    getIndexPath: () => path.join(app.getPath('userData'), 'knowledge-index.json'),
+    emit: sendKbState,
+    log: (event, details) => writeDiagnosticLog(event, details)
+  });
+  kbService.loadAsync();
   aiService = createAiService({
     getConfig: readConfig,
     emit: sendAiEvent,
-    log: (event, details) => writeDiagnosticLog(event, details)
+    log: (event, details) => writeDiagnosticLog(event, details),
+    retrieveKnowledge: async (query) => {
+      const config = readConfig();
+      if (!config.aiKnowledgeEnabled || !kbService) return [];
+      const kbState = kbService.getState();
+      if (!kbState.docCount) return [];
+      return kbService.search(query, config.kbTopK);
+    }
   });
   writeDiagnosticLog('startup', {
     version: app.getVersion(),
@@ -878,6 +941,12 @@ ipcMain.handle('config:save', (_event, partial) => {
   config.aiBaseUrl = typeof config.aiBaseUrl === 'string' ? config.aiBaseUrl.trim().slice(0, 300) : '';
   config.aiApiKey = typeof config.aiApiKey === 'string' ? config.aiApiKey.trim().slice(0, 200) : '';
   config.aiModel = typeof config.aiModel === 'string' ? config.aiModel.trim().slice(0, 100) : '';
+  config.aiKnowledgeEnabled = Boolean(config.aiKnowledgeEnabled);
+  config.kbIndexMode = ['keyword', 'embedding'].includes(config.kbIndexMode) ? config.kbIndexMode : 'keyword';
+  config.kbEmbedBase = typeof config.kbEmbedBase === 'string' ? config.kbEmbedBase.trim().slice(0, 300) : '';
+  config.kbEmbedModel = typeof config.kbEmbedModel === 'string' ? config.kbEmbedModel.trim().slice(0, 100) : '';
+  config.kbEmbedKey = typeof config.kbEmbedKey === 'string' ? config.kbEmbedKey.trim().slice(0, 200) : '';
+  config.kbTopK = Math.max(1, Math.min(8, Number(config.kbTopK) || 4));
   writeConfig(config);
   applyWindowConfig(config);
   app.setLoginItemSettings({
@@ -887,6 +956,7 @@ ipcMain.handle('config:save', (_event, partial) => {
   sendConfig(config);
   if (updater) updater.applyConfig(config);
   if (aiService) refreshAiState();
+  if (kbService) refreshKbState();
   if (previous.qqLyricsEnabled !== config.qqLyricsEnabled) {
     configureLyrics(config, config.qqLyricsEnabled);
   }
@@ -1250,6 +1320,42 @@ ipcMain.handle('ai:persona-activate', (_event, id) => {
   refreshAiState();
   return true;
 });
+ipcMain.handle('kb:get-state', () => (kbService ? kbService.getState() : { docCount: 0, chunkCount: 0, mode: 'keyword', ready: false }));
+ipcMain.handle('kb:get-docs', () => (kbService ? kbService.getDocs() : []));
+ipcMain.handle('kb:add-text', async (_event, payload) => {
+  if (!kbService) return { ok: false, error: '知识库未就绪' };
+  const result = await kbService.addText(payload && payload.name, payload && payload.text);
+  if (result.ok) refreshKbState();
+  return result;
+});
+ipcMain.handle('kb:import-files', async (_event) => {
+  if (!kbService) return { imported: [], errors: ['知识库未就绪'] };
+  const parent = knowledgeWindow && !knowledgeWindow.isDestroyed() ? knowledgeWindow : undefined;
+  const result = await dialog.showOpenDialog(parent, {
+    title: '导入知识文件',
+    properties: ['openFile', 'multiSelections'],
+    filters: [
+      { name: '文本与文档', extensions: ['txt', 'md', 'markdown', 'json', 'csv', 'srt'] }
+    ]
+  });
+  if (result.canceled || !result.filePaths.length) return { imported: [] };
+  const imported = await kbService.importFiles(result.filePaths);
+  refreshKbState();
+  return { imported };
+});
+ipcMain.handle('kb:remove', (_event, id) => {
+  if (!kbService) return false;
+  kbService.removeDoc(id);
+  refreshKbState();
+  return true;
+});
+ipcMain.handle('kb:clear', () => {
+  if (!kbService) return false;
+  kbService.clearAll();
+  refreshKbState();
+  return true;
+});
+ipcMain.handle('kb:open-manager', () => { createKnowledgeWindow(); return true; });
 
 ipcMain.on('drag:start', () => {
   if (!petWindow || petWindow.isDestroyed()) return;

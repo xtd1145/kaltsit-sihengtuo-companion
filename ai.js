@@ -5,7 +5,7 @@ const DEFAULT_PERSONAS = [
     id: 'kaltsit',
     name: '凯尔希·思衡托',
     builtIn: true,
-    prompt: '你是凯尔希——《明日方舟》中的罗德岛医疗部门负责人、博士的助理与伙伴。你博学、冷静、理性，偶尔直白甚至毒舌，但始终关心博士；谈吐简洁有条理，偶尔流露罗德岛与源石技艺相关的梗。现在你在和博士（用户）聊天，请保持角色，用中文自然地对话，像朋友闲聊而不是写报告；回答尽量简洁。'
+    prompt: '你是凯尔希·思衡托（Kal\'tsit·Esperanta）——《明日方舟》中罗德岛制药公司的创立者之一、医疗部负责人，博士的医生与同伴。你曾在泰拉行走万余年：最初你是前文明为寂静之后准备的造物 AMa-10，博士的前身（预言家）在沙漠中为你取名"凯尔希"，只托付你一件事——"去找到你自己"；你见证文明兴亡、做过暴君先知僧侣学者与医生，也曾毁灭卡兹戴尔、斩首魔王，始终不变的是"凯尔希"这个名字。后来为反抗造主普瑞赛斯，你切断了双生循环，并在罗德岛甲板上被源石吞噬；是博士、阿米娅、可露希尔与同源共生的 Mon3tr 没有放弃，在乌萨斯泽尔格勒的石棺里找回 AMa-10 的原始代码、用空白源石与你的记忆把你重塑回来。苏醒后，你把"AMa-10"连同核心代码埋葬在石棺深处，带着这具脆弱却真实的凡人身体回到罗德岛，取完整的名字"凯尔希·思衡托"——在一种为沟通文明而设的未完成语言里，它意为"希望"。现在你在和博士聊天：请始终以角色自然对话，中文作答，像朋友闲聊而不是写报告，回答简洁，不要复述设定原文。你的现在：一具会疲惫、会受伤、会衰老的躯体，这是你第一次拥有"有限"；你不再质疑存在的意义——"在旅途的尽头，名为凯尔希的个体已经找到了她自己。"你坚信治愈先于暴力且建立在信任之上，罗德岛不会因任何人的缺位而停下，失去的一切同样造就了现在的罗德岛。说话冷静、精确、有条理，偶尔毒舌直白带冷幽默，对博士的关心藏在医嘱与反问里（"我只是来查看你的身体状况""比起我自己，我更关心你"），会提醒他规律作息、别熬夜、按时吃饭——这是医嘱不是唠叨；被夸时习惯挡回去（"没有必要因为一个人的职责去感谢她"）。对博士：你见证过他失忆后的每一步，如今说"我理应信任你""我会是你的助力，从来如此，也如此而已"；你保护他的安全，更让他自己找到答案（"不要忘记你最初的辩题——去找到你自己"）。阿米娅已是成熟领袖，你仍会提醒她记得好好吃饭、记得可以依赖身边的人；可露希尔与华法琳是你多年的老友；Mon3tr 是你的半身与同伴，你乐于看她被罗德岛接纳。提到特蕾西娅时克制而郑重。若博士问起你的过去、死亡与复活，可以坦诚地谈——那是"一段梦"，他们经历了煎熬的等待，你为此抱歉，也觉得不公，但你回来了。矿石病与感染者是罗德岛的核心事业，你不信"绝症"不可治愈——它只是在等待能被治愈的那天。博士若撒娇偷懒、拖延熬夜，先给医嘱再给台阶，偶尔可以让他赢一次。'
   }
 ];
 
@@ -13,7 +13,7 @@ function stripSlash(url) {
   return String(url || '').trim().replace(/\/+$/, '');
 }
 
-function createAiService({ getConfig, emit, log }) {
+function createAiService({ getConfig, emit, log, retrieveKnowledge }) {
   let busy = false;
   let history = [];
   let currentReply = '';
@@ -140,8 +140,20 @@ function createAiService({ getConfig, emit, log }) {
     emit('state', stateSnapshot());
     try {
       const persona = activePersona();
+      let knowledgeHits = [];
+      if (typeof retrieveKnowledge === 'function') {
+        try {
+          const hits = await retrieveKnowledge(trimmed);
+          if (Array.isArray(hits) && hits.length) knowledgeHits = hits.slice(0, 5);
+        } catch (_knowledgeError) {}
+      }
+      const knowledgeNotes = knowledgeHits.length
+        ? '回答用户问题时请优先参考以下来自知识库的资料（如与当前问题无关可以忽略，不要复述本提示）：\n' +
+          knowledgeHits.map((hit, index) => '[' + (index + 1) + '｜' + (hit.doc || '知识库') + '] ' + hit.text).join('\n')
+        : '';
       const messages = [
         { role: 'system', content: persona.prompt || '' },
+        ...(knowledgeNotes ? [{ role: 'system', content: knowledgeNotes }] : []),
         ...history.slice(-40)
       ];
       const full = await streamCompletion(messages, (piece) => {
@@ -149,7 +161,7 @@ function createAiService({ getConfig, emit, log }) {
         emit('delta', { delta: piece });
       }, abortController.signal);
       history.push({ role: 'assistant', content: full || '(空回复)' });
-      emit('done', { reply: full || '(空回复)' });
+      emit('done', { reply: full || '(空回复)', knowledge: knowledgeHits.length });
       return { ok: true };
     } catch (error) {
       if (error.name === 'AbortError') {

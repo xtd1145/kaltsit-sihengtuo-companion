@@ -327,6 +327,11 @@
     #ai-test-status { min-width: 0; }
     #ai-test-status[data-state="ok"] { color: #217f7b; }
     #ai-test-status[data-state="err"] { color: #a65a3f; }
+
+    #kb-topk-value { width: 26px; color: #5e696d; font-size: 13px; text-align: right; font-variant-numeric: tabular-nums; }
+    #kb-status { min-width: 0; color: #217f7b; }
+    #kb-status[data-state="err"] { color: #a65a3f; }
+    .kb-note { margin: 2px 0 10px; color: #7a8488; font-size: 11px; line-height: 17px; }
   </style>
 </head>
 <body>
@@ -530,6 +535,60 @@
       </div>
     </section>
 
+    <section id="section-kb">
+      <h2>知识库</h2>
+      <div class="setting-row">
+        <div class="setting-copy">
+          <span class="setting-label">启用知识库问答</span>
+          <span class="setting-note">对话时会先从知识库检索相关内容，随提问一起发给 AI 参考</span>
+        </div>
+        <label class="switch">
+          <input id="ai-knowledge-enabled" type="checkbox">
+          <span class="switch-track"></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <span class="setting-label">索引方式</span>
+        <div class="segments" id="kb-index-mode" role="group" aria-label="索引方式">
+          <button class="segment" type="button" data-value="keyword">关键词</button>
+          <button class="segment" type="button" data-value="embedding">向量</button>
+        </div>
+      </div>
+      <div class="kb-note">
+        <b>关键词：</b>无需任何额外模型，任何电脑都能用，适合中小型知识库。<br>
+        <b>向量：</b>语义检索更准，需要一个 Embedding 接口 —— 可在本机跑 Ollama / LM Studio 等部署 Qwen 等小模型，或用云端 Embedding API。
+      </div>
+      <div class="setting-row" id="kb-embed-row">
+        <span class="setting-label">Embedding 地址</span>
+        <input class="secret-input repo-input ai-input" id="kb-embed-base" type="text" placeholder="留空则复用聊天接口地址；本地如 http://127.0.0.1:11434/v1" spellcheck="false">
+      </div>
+      <div class="setting-row" id="kb-embed-model-row">
+        <span class="setting-label">Embedding 模型</span>
+        <input class="secret-input repo-input ai-input" id="kb-embed-model" type="text" placeholder="如 nomic-embed-text / text-embedding-3-small" spellcheck="false">
+      </div>
+      <div class="setting-row" id="kb-embed-key-row">
+        <span class="setting-label">Embedding Key</span>
+        <input class="secret-input repo-input ai-input" id="kb-embed-key" type="password" placeholder="留空则复用聊天接口的 API Key" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="setting-row">
+        <span class="setting-label">引用条数</span>
+        <div class="control-line">
+          <input id="kb-topk" type="range" min="1" max="8" step="1" aria-label="引用条数">
+          <span id="kb-topk-value">4</span>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div class="setting-copy">
+          <span class="setting-label">知识库状态</span>
+          <span class="setting-note" id="kb-status">—</span>
+        </div>
+        <div class="control-line">
+          <button class="button" id="kb-open" type="button">知识库管理</button>
+          <button class="button" id="kb-import" type="button">导入文件…</button>
+        </div>
+      </div>
+    </section>
+
     <section class="actions">
       <div class="button-group">
         <button class="button" id="manage-actions" type="button">动作管理</button>
@@ -554,7 +613,8 @@
       openAtLogin: document.getElementById('login'),
       mouseThrough: document.getElementById('mouse-through'),
       autoUpdateEnabled: document.getElementById('auto-update'),
-      aiEnabled: document.getElementById('ai-enabled')
+      aiEnabled: document.getElementById('ai-enabled'),
+      aiKnowledgeEnabled: document.getElementById('ai-knowledge-enabled')
     };
     const scaleValue = document.getElementById('scale-value');
     const bubbleScaleValue = document.getElementById('bubble-scale-value');
@@ -586,7 +646,15 @@
     const personaNewButton = document.getElementById('ai-persona-new');
     const personaDeleteButton = document.getElementById('ai-persona-delete');
     const personaHint = document.getElementById('ai-persona-hint');
+    const kbModeButtons = [...document.querySelectorAll('#kb-index-mode .segment')];
+    const kbEmbedBaseInput = document.getElementById('kb-embed-base');
+    const kbEmbedModelInput = document.getElementById('kb-embed-model');
+    const kbEmbedKeyInput = document.getElementById('kb-embed-key');
+    const kbTopkInput = document.getElementById('kb-topk');
+    const kbTopkValue = document.getElementById('kb-topk-value');
+    const kbStatusEl = document.getElementById('kb-status');
     let aiState = null;
+    let kbState = null;
     let config = null;
     let saveTimer = null;
     let statusTimer = null;
@@ -611,6 +679,15 @@
       aiModeButtons.forEach((button) => {
         button.classList.toggle('active', button.dataset.value === (config.aiReplyMode || 'window'));
       });
+      kbModeButtons.forEach((button) => {
+        button.classList.toggle('active', button.dataset.value === (config.kbIndexMode || 'keyword'));
+      });
+      kbEmbedBaseInput.value = config.kbEmbedBase || '';
+      kbEmbedModelInput.value = config.kbEmbedModel || '';
+      kbEmbedKeyInput.value = config.kbEmbedKey || '';
+      kbTopkInput.value = Math.max(1, Math.min(8, Number(config.kbTopK) || 4));
+      kbTopkValue.textContent = kbTopkInput.value;
+      renderKbStatus();
       repoInput.value = [config.updateOwner, config.updateRepo].filter(Boolean).join('/');
       activityModeControl.dataset.value = config.activityMode;
       activityModeButtons.forEach((button) => {
@@ -678,6 +755,20 @@
       const refreshed = await window.companionAPI.aiGetState();
       applyAiState(refreshed);
       showSaved();
+    }
+
+    function renderKbStatus(nextState) {
+      if (nextState) kbState = nextState;
+      if (!kbState) { kbStatusEl.textContent = '—'; kbStatusEl.dataset.state = ''; return; }
+      const mode = kbState.mode === 'embedding' ? '向量检索' : '关键词检索';
+      kbStatusEl.textContent = mode + ' ｜ 文档 ' + kbState.docCount + ' ｜ 分块 ' + kbState.chunkCount +
+        (kbState.indexedWithVectors ? ' ｜ 已向量化' : '');
+      kbStatusEl.dataset.state = '';
+    }
+
+    function kbFeedback(text, ok) {
+      kbStatusEl.textContent = text;
+      kbStatusEl.dataset.state = ok ? '' : 'err';
     }
 
     function renderUpdateState(state) {
@@ -887,6 +978,34 @@
     window.companionAPI.getUpdateState().then(renderUpdateState);
     window.companionAPI.onAiState(applyAiState);
     window.companionAPI.aiGetState().then(applyAiState);
+    for (const [key, input] of [['kbEmbedBase', kbEmbedBaseInput], ['kbEmbedModel', kbEmbedModelInput], ['kbEmbedKey', kbEmbedKeyInput]]) {
+      input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') input.blur();
+      });
+      input.addEventListener('change', () => commitTextField(key, input));
+    }
+    kbModeButtons.forEach((button) => {
+      button.addEventListener('click', () => save({ kbIndexMode: button.dataset.value }));
+    });
+    kbTopkInput.addEventListener('input', () => {
+      kbTopkValue.textContent = kbTopkInput.value;
+      window.clearTimeout(saveTimer);
+      saveTimer = window.setTimeout(() => save({ kbTopK: Number(kbTopkInput.value) }), 80);
+    });
+    document.getElementById('kb-open').addEventListener('click', () => window.companionAPI.kbOpenManager());
+    document.getElementById('kb-import').addEventListener('click', async () => {
+      kbFeedback('正在导入…', true);
+      const result = await window.companionAPI.kbImportFiles();
+      const imported = (result && result.imported) || [];
+      const done = imported.filter((item) => item.ok);
+      const failed = imported.filter((item) => !item.ok);
+      if (imported.length === 0) kbFeedback('未导入文件');
+      else if (done.length && !failed.length) kbFeedback('导入成功 ' + done.length + ' 个文件', true);
+      else kbFeedback('成功 ' + done.length + '，失败 ' + failed.length + '：' + failed.map((f) => (f.name || '') + (f.error || '')).join('；'));
+      renderKbStatus(await window.companionAPI.kbGetState());
+    });
+    window.companionAPI.onKbState(renderKbStatus);
+    window.companionAPI.kbGetState().then(renderKbStatus);
   </script>
 </body>
 </html>

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'">
+  <title>知识库管理</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: #253034;
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html, body { height: 100%; margin: 0; background: #f6f7f8; }
+    body { display: flex; flex-direction: column; overflow: hidden; }
+
+    header {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      padding: 14px 20px;
+      border-bottom: 1px solid #dfe3e6;
+      background: #fff;
+    }
+    header h1 { margin: 0; font-size: 16px; font-weight: 650; }
+    #stats { color: #687276; font-size: 12.5px; }
+    .spacer { flex: 1; }
+    .button {
+      min-height: 30px;
+      padding: 0 13px;
+      border: 1px solid #cbd1d3;
+      border-radius: 6px;
+      color: #2c373a;
+      background: #fff;
+      font-size: 12.5px;
+      cursor: pointer;
+    }
+    .button:hover { border-color: #aab4b7; background: #fafbfb; }
+    .button.danger { color: #a33c3c; }
+    .button.primary { color: #fff; border-color: #217f7b; background: #217f7b; }
+    .button:disabled { opacity: 0.5; cursor: default; }
+
+    main { flex: 1; overflow-y: auto; padding: 16px 20px 22px; }
+    .card {
+      padding: 12px 14px;
+      border: 1px solid #e2e6e8;
+      border-radius: 8px;
+      background: #fff;
+    }
+    .row { display: flex; gap: 8px; align-items: center; }
+    .grow { flex: 1; }
+    input[type="text"], textarea {
+      border: 1px solid #cbd1d3;
+      border-radius: 6px;
+      outline: 0;
+      color: #263033;
+      background: #fff;
+      font: inherit;
+      font-size: 13px;
+    }
+    input[type="text"]:focus, textarea:focus { border-color: #5ca9a4; box-shadow: 0 0 0 2px rgba(70, 151, 145, 0.14); }
+    #doc-name { height: 34px; padding: 0 10px; }
+    #paste-text { width: 100%; height: 120px; margin: 10px 0 8px; padding: 9px 10px; line-height: 19px; resize: vertical; }
+    #feedback { color: #a65a3f; font-size: 12px; line-height: 18px; }
+    #feedback.ok { color: #217f7b; }
+
+    h2 { margin: 22px 0 8px; color: #687276; font-size: 12px; font-weight: 650; }
+    #docs { display: flex; flex-direction: column; gap: 8px; }
+    .doc { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #e2e6e8; border-radius: 8px; background: #fff; }
+    .doc .name { font-size: 13px; font-weight: 600; }
+    .doc .meta { margin-top: 2px; color: #7a8488; font-size: 11.5px; line-height: 16px; }
+    .doc .meta.warn { color: #a65a3f; }
+    #empty { color: #8a9498; font-size: 13px; padding: 18px 4px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>知识库</h1>
+    <span id="stats">—</span>
+    <div class="spacer"></div>
+    <button class="button primary" id="import-files" type="button">导入文件…</button>
+    <button class="button danger" id="clear-all" type="button">清空全部</button>
+  </header>
+  <main>
+    <div class="card">
+      <div class="row">
+        <input class="grow" id="doc-name" type="text" placeholder="文档名称（可选）" maxlength="60">
+      </div>
+      <textarea id="paste-text" placeholder="把要学习的文字粘贴到这里（txt / md / 剧情文本 / 设定集…），然后点「添加到知识库」"></textarea>
+      <div class="row">
+        <div class="grow" id="feedback"></div>
+        <button class="button primary" id="add-text" type="button">添加到知识库</button>
+      </div>
+    </div>
+
+    <h2>已有文档（点名称前删除可移除）</h2>
+    <div id="docs"></div>
+    <div id="empty" hidden>知识库还是空的 —— 粘贴一段文字，或点右上角「导入文件…」。</div>
+  </main>
+  <script>
+    const statsEl = document.getElementById('stats');
+    const docsEl = document.getElementById('docs');
+    const emptyEl = document.getElementById('empty');
+    const feedbackEl = document.getElementById('feedback');
+    const docNameInput = document.getElementById('doc-name');
+    const pasteText = document.getElementById('paste-text');
+
+    function setFeedback(text, ok) {
+      feedbackEl.textContent = text || '';
+      feedbackEl.className = ok ? 'ok' : '';
+      if (!text) feedbackEl.className = '';
+    }
+
+    function renderStats(state) {
+      if (!state) { statsEl.textContent = '—'; return; }
+      const mode = state.mode === 'embedding' ? '向量检索' : '关键词检索';
+      statsEl.textContent = `模式：${mode} ｜ 文档 ${state.docCount} ｜ 分块 ${state.chunkCount} ${state.indexedWithVectors ? '｜ 已向量化' : ''}`;
+    }
+
+    function renderDocs(docs) {
+      docsEl.textContent = '';
+      emptyEl.hidden = docs.length > 0;
+      for (const doc of docs) {
+        const row = document.createElement('div');
+        row.className = 'doc';
+        const info = document.createElement('div');
+        info.className = 'grow';
+        const name = document.createElement('div');
+        name.className = 'name';
+        name.textContent = doc.name;
+        const meta = document.createElement('div');
+        meta.className = 'meta' + (doc.warning ? ' warn' : '');
+        const date = new Date(doc.addedAt).toLocaleString('zh-CN');
+        meta.textContent = doc.chunkCount + ' 个分块 · ' + date + (doc.warning ? ' · ' + doc.warning : (doc.vectorReady ? ' · 已向量化' : ''));
+        info.appendChild(name);
+        info.appendChild(meta);
+        const remove = document.createElement('button');
+        remove.className = 'button danger';
+        remove.type = 'button';
+        remove.textContent = '删除';
+        remove.addEventListener('click', async () => {
+          await window.companionAPI.kbRemove(doc.id);
+          await refresh();
+        });
+        row.appendChild(info);
+        row.appendChild(remove);
+        docsEl.appendChild(row);
+      }
+    }
+
+    async function refresh() {
+      const state = await window.companionAPI.kbGetState();
+      renderStats(state);
+      const docs = await window.companionAPI.kbGetDocs();
+      renderDocs(docs);
+    }
+
+    document.getElementById('add-text').addEventListener('click', async () => {
+      const text = pasteText.value.trim();
+      if (!text) { setFeedback('请先粘贴要学习的文字。'); return; }
+      const name = docNameInput.value.trim() || '粘贴文本 ' + new Date().toLocaleString('zh-CN');
+      setFeedback('正在处理…');
+      const result = await window.companionAPI.kbAddText(name, text);
+      if (result && result.ok) {
+        setFeedback('已加入知识库：' + (result.chunks || 0) + ' 个分块' + (result.warning ? '（' + result.warning + '）' : ''), true);
+        docNameInput.value = '';
+        pasteText.value = '';
+      } else {
+        setFeedback((result && result.error) || '添加失败');
+      }
+      await refresh();
+    });
+
+    document.getElementById('import-files').addEventListener('click', async () => {
+      const result = await window.companionAPI.kbImportFiles();
+      const imported = (result && result.imported) || [];
+      const done = imported.filter((item) => item.ok);
+      const failed = imported.filter((item) => !item.ok);
+      if (done.length) setFeedback('导入成功 ' + done.length + ' 个' + (failed.length ? '，失败 ' + failed.length + ' 个' : ''), true);
+      else if (failed.length) setFeedback(failed.map((f) => (f.name || '文件') + '：' + (f.error || '失败')).join('；'));
+      await refresh();
+    });
+
+    document.getElementById('clear-all').addEventListener('click', async () => {
+      if (!confirm('确定清空全部知识库文档吗？此操作不可恢复。')) return;
+      await window.companionAPI.kbClear();
+      setFeedback('已清空知识库。', true);
+      await refresh();
+    });
+
+    window.companionAPI.onKbState((state) => renderStats(state));
+    refresh();
+  </script>
+</body>
+</html>
