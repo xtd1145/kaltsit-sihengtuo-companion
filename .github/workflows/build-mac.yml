@@ -4,9 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: '把产物上传到的 Release tag'
+        description: '上传到的 Release tag'
         required: false
         default: 'v0.2.1'
+      arch:
+        description: 'macOS 架构'
+        required: false
+        default: 'arm64'
+        type: choice
+        options:
+          - 'arm64'
+          - 'x64'
   push:
     tags:
       - 'v*'
@@ -16,16 +24,8 @@ permissions:
 
 jobs:
   mac-build:
-    name: macOS build (${{ matrix.arch }})
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: macos-13
-            arch: x64
-          - os: macos-14
-            arch: arm64
-    runs-on: ${{ matrix.os }}
+    name: macOS build (${{ inputs.arch || 'arm64' }})
+    runs-on: macos-14
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,14 +40,14 @@ jobs:
         run: npm install --no-audit --no-fund
 
       - name: Build mac (electron-builder)
-        run: npx electron-builder --mac --${{ matrix.arch }}
+        run: npx electron-builder --mac --${{ inputs.arch || 'arm64' }}
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: dist-${{ matrix.arch }}
+          name: dist-${{ inputs.arch || 'arm64' }}
           path: |
             dist/*.dmg
             dist/*.zip
@@ -55,7 +55,7 @@ jobs:
 
       - name: Attach to GitHub Release
         run: |
-          TAG="${{ inputs.release_tag }}";
+          TAG="${TAG_INPUT}";
           if [ -z "$TAG" ]; then TAG="v0.2.1"; fi
           if git ls-remote --tags origin "${TAG}" >/dev/null 2>&1; then
             gh release upload "${TAG}" dist/*.dmg dist/*.zip --clobber
@@ -65,3 +65,4 @@ jobs:
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_INPUT: ${{ inputs.release_tag }}
