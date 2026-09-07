@@ -2,9 +2,8 @@
 $ErrorActionPreference = 'Continue'
 $repo = Split-Path $PSScriptRoot -Parent
 $nm = Join-Path $repo 'node_modules'
-Write-Output '== 删除可选依赖 sharp / @huggingface =='
+Write-Output '== 删除可选依赖 sharp =='
 Remove-Item -Recurse -Force (Join-Path $nm 'sharp') -ErrorAction SilentlyContinue
-Remove-Item -Recurse -Force (Join-Path $nm '@huggingface') -ErrorAction SilentlyContinue
 Write-Output '== 裁剪 onnxruntime-node 非 Windows 平台 =='
 $ortBin = Join-Path $nm 'onnxruntime-node\bin'
 foreach ($nv in Get-ChildItem $ortBin -Directory) {
