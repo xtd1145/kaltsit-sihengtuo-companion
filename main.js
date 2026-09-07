@@ -81,9 +81,9 @@ const DEFAULT_CONFIG = {
   baseAction: DEFAULT_ACTION_ID,
   position: null,
   mouseThrough: false,
-  autoUpdateEnabled: false,
-  updateOwner: '',
-  updateRepo: ''
+  autoUpdateEnabled: true,
+  updateOwner: 'xtd1145',
+  updateRepo: 'kaltsit-sihengtuo-companion'
 };
 
 const WINDOW_BASE = { width: 300, height: 360 };

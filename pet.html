@@ -140,6 +140,32 @@
       opacity: 1;
     }
 
+    body.pet-through #toolbar {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #through-badge {
+      position: absolute;
+      z-index: 6;
+      left: 50%;
+      bottom: 6px;
+      padding: 4px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 10px;
+      color: #fff;
+      background: rgba(35, 43, 45, 0.74);
+      font-size: 11px;
+      line-height: 15px;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(-50%);
+      pointer-events: none;
+      transition: opacity 140ms ease;
+    }
+
+    body.pet-through #through-badge { opacity: 1; }
+
     .tool-button {
       display: grid;
       width: 32px;
@@ -226,14 +252,18 @@
     <button class="tool-button" id="greet-button" type="button" title="打招呼" aria-label="打招呼">♡</button>
     <button class="tool-button" id="quiet-button" type="button" title="安静模式" aria-label="安静模式">☾</button>
     <button class="tool-button" id="manager-button" type="button" title="动作管理" aria-label="动作管理">▦</button>
+    <button class="tool-button" id="through-button" type="button" title="鼠标穿透" aria-label="鼠标穿透">穿</button>
     <button class="tool-button" id="settings-button" type="button" title="设置" aria-label="设置">⚙</button>
   </div>
+  <div id="through-badge" role="status" aria-live="polite">鼠标穿透已开启 · 可从托盘菜单或设置页关闭</div>
   <script>
     const stage = document.getElementById('stage');
     const petZone = document.getElementById('pet-zone');
     const petImages = [document.getElementById('pet-a'), document.getElementById('pet-b')];
     const bubble = document.getElementById('bubble');
     const quietButton = document.getElementById('quiet-button');
+    const throughButton = document.getElementById('through-button');
+    const throughBadge = document.getElementById('through-badge');
     const lyricsPanel = document.getElementById('lyrics');
     const lyricsTitle = document.getElementById('lyrics-title');
     const lyricsCurrent = document.getElementById('lyrics-current');
@@ -484,6 +514,14 @@
       config = nextConfig;
       updateScale();
       updateBubbleScale();
+      document.body.classList.toggle('pet-through', Boolean(config.mouseThrough));
+      throughButton.classList.toggle('active', Boolean(config.mouseThrough));
+      throughButton.title = config.mouseThrough
+        ? '鼠标穿透已开启（从托盘菜单或设置页关闭）'
+        : '鼠标穿透';
+      throughBadge.textContent = config.mouseThrough
+        ? '鼠标穿透已开启 · 点托盘图标或到设置页关闭'
+        : '';
       quietButton.classList.toggle('active', currentMode() === 'quiet');
       quietButton.title = currentMode() === 'quiet' ? '返回之前的模式' : '安静模式';
       if (currentMode() === 'quiet' || !config.speechEnabled) setBubble(null);
@@ -624,6 +662,7 @@
         : 'quiet';
       applyConfig(await window.companionAPI.saveConfig({ activityMode }));
     });
+    throughButton.addEventListener('click', () => window.companionAPI.toggleMouseThrough());
 
     window.companionAPI.onConfigChanged(applyConfig);
     window.addEventListener('resize', updateScale);
