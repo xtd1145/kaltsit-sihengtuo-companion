@@ -39,6 +39,7 @@ contextBridge.exposeInMainWorld('companionAPI', {
   kbClear: () => ipcRenderer.invoke('kb:clear'),
   kbOpenManager: () => ipcRenderer.invoke('kb:open-manager'),
   toggleMouseThrough: () => ipcRenderer.invoke('mouse-through:toggle'),
+  setThroughHover: (active) => ipcRenderer.invoke('mouse-through:hover', active),
   checkForUpdates: () => ipcRenderer.invoke('update:check'),
   installUpdate: () => ipcRenderer.invoke('update:install'),
   getUpdateState: () => ipcRenderer.invoke('update:get-state'),

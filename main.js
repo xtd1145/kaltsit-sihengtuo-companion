@@ -113,6 +113,7 @@ let chatWindow = null;
 let knowledgeWindow = null;
 let tray = null;
 let dragState = null;
+let throughInteractive = false;
 let dragTimer = null;
 let quitting = false;
 let lyricsService = null;
@@ -512,9 +513,23 @@ function applyWindowConfig(config) {
 }
 
 function applyClickThroughConfig(config) {
+  throughInteractive = false;
   if (!petWindow || petWindow.isDestroyed()) return;
+  const enabled = Boolean(config.mouseThrough);
   try {
-    petWindow.setIgnoreMouseEvents(Boolean(config.mouseThrough));
+    petWindow.setIgnoreMouseEvents(enabled, { forward: enabled });
+  } catch (_error) {}
+}
+
+function setThroughInteractive(active) {
+  if (!petWindow || petWindow.isDestroyed()) return;
+  if (!readConfig().mouseThrough) {
+    throughInteractive = false;
+    return;
+  }
+  throughInteractive = Boolean(active);
+  try {
+    petWindow.setIgnoreMouseEvents(!throughInteractive, { forward: true });
   } catch (_error) {}
 }
 
@@ -1279,6 +1294,10 @@ ipcMain.handle('app:quit', () => { quitting = true; app.quit(); });
 ipcMain.handle('mouse-through:toggle', () => {
   toggleMouseThrough();
   return readConfig().mouseThrough;
+});
+ipcMain.handle('mouse-through:hover', (_event, active) => {
+  setThroughInteractive(Boolean(active));
+  return true;
 });
 ipcMain.handle('update:get-state', () => (updater ? updater.getState() : { phase: 'idle', currentVersion: app.getVersion() }));
 ipcMain.handle('update:check', () => (updater ? updater.checkForUpdates({ manual: true }) : { phase: 'error', message: '更新模块未就绪' }));

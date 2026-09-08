@@ -145,26 +145,28 @@
       pointer-events: none;
     }
 
-    #through-badge {
+    #through-pill {
       position: absolute;
       z-index: 6;
       left: 50%;
       bottom: 6px;
       padding: 4px 11px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 11px;
       color: #fff;
-      background: rgba(35, 43, 45, 0.74);
+      background: rgba(35, 43, 45, 0.76);
+      font: inherit;
       font-size: 11px;
       line-height: 15px;
       white-space: nowrap;
+      cursor: pointer;
       opacity: 0;
       transform: translateX(-50%);
-      pointer-events: none;
-      transition: opacity 140ms ease;
+      transition: opacity 140ms ease, background 140ms ease;
     }
 
-    body.pet-through #through-badge { opacity: 1; }
+    #through-pill:hover { background: rgba(60, 74, 76, 0.86); }
+    body.pet-through #through-pill { opacity: 1; }
 
     #ai-bar {
       position: absolute;
@@ -290,7 +292,7 @@
     <button class="tool-button" id="through-button" type="button" title="鼠标穿透" aria-label="鼠标穿透">➤</button>
     <button class="tool-button" id="settings-button" type="button" title="设置" aria-label="设置">⚙</button>
   </div>
-  <div id="through-badge" role="status" aria-live="polite">鼠标穿透已开启 · 可从托盘菜单或设置页关闭</div>
+  <button id="through-pill" type="button" hidden aria-label="关闭鼠标穿透">穿透中 · 点击关闭</button>
   <script>
     const stage = document.getElementById('stage');
     const petZone = document.getElementById('pet-zone');
@@ -298,7 +300,7 @@
     const bubble = document.getElementById('bubble');
     const quietButton = document.getElementById('quiet-button');
     const throughButton = document.getElementById('through-button');
-    const throughBadge = document.getElementById('through-badge');
+    const throughPill = document.getElementById('through-pill');
     const aiBar = document.getElementById('ai-bar');
     const aiText = document.getElementById('ai-text');
     let aiBusy = false;
@@ -557,11 +559,10 @@
       aiBar.hidden = !aiVisible;
       throughButton.classList.toggle('active', Boolean(config.mouseThrough));
       throughButton.title = config.mouseThrough
-        ? '鼠标穿透已开启（从托盘菜单或设置页关闭）'
+        ? '鼠标穿透已开启（点击穿透中的小按钮可关闭）'
         : '鼠标穿透';
-      throughBadge.textContent = config.mouseThrough
-        ? '鼠标穿透已开启 · 点托盘图标或到设置页关闭'
-        : '';
+      throughPill.hidden = !config.mouseThrough;
+      lastThroughHover = null;
       quietButton.classList.toggle('active', currentMode() === 'quiet');
       quietButton.title = currentMode() === 'quiet' ? '返回之前的模式' : '安静模式';
       if (currentMode() === 'quiet' || !config.speechEnabled) setBubble(null);
@@ -703,6 +704,36 @@
       applyConfig(await window.companionAPI.saveConfig({ activityMode }));
     });
     throughButton.addEventListener('click', () => window.companionAPI.toggleMouseThrough());
+
+    let lastThroughHover = null;
+
+    function throughPillHit(x, y) {
+      const rect = throughPill.getBoundingClientRect();
+      return rect.left <= x && x <= rect.right && rect.top <= y && y <= rect.bottom;
+    }
+
+    function updateThroughHover(x, y) {
+      if (!config || !config.mouseThrough) {
+        if (lastThroughHover !== false) {
+          lastThroughHover = false;
+          window.companionAPI.setThroughHover(false);
+        }
+        return;
+      }
+      const active = throughPillHit(x, y);
+      if (active !== lastThroughHover) {
+        lastThroughHover = active;
+        window.companionAPI.setThroughHover(active);
+      }
+    }
+
+    throughPill.addEventListener('click', () => {
+      window.companionAPI.toggleMouseThrough();
+      updateThroughHover(-1, -1);
+    });
+    window.addEventListener('mousemove', (event) => updateThroughHover(event.clientX, event.clientY));
+    window.addEventListener('mouseleave', () => updateThroughHover(-1, -1));
+    window.addEventListener('blur', () => updateThroughHover(-1, -1));
 
     function aiModeHasPet() {
       return Boolean(config && config.aiEnabled && ['bubble', 'both'].includes(config.aiReplyMode || 'window'));
